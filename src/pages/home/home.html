@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Principal</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+
+    <ion-item (click)="selectedTask(task)" *ngFor = "let task of taskList">
+        
+      <h2>{{task.tittle}}</h2>
+      <p>{{task.description}}</p>
+    </ion-item>
+
+    
+
+
+
+
+  </ion-list>
+</ion-content>
