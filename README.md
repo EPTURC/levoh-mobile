@@ -2,8 +2,24 @@
 Mobile UI for EPTURC truck drivers
 
 
-### ionic Getting Started
 
-Start a new project by following our quick [Getting Started guide](https://ionicframework.com/getting-started/).
-We would love to hear from you! If you have any feedback or run into issues using our framework, please file
-an [issue](https://github.com/ionic-team/ionic/issues/new) on this repository.
+# First, install Node.js. 
+https://nodejs.org/en/download/
+
+# Install ionic (CMD/Terminal)
+
+npm install -g ionic
+
+# Clone project
+git clone https://github.com/EPTURC/levoh-mobile.git
+
+# Execute project
+
+1 - In CMD, find the project source
+2 - Write the command: 'ionic serve --lab'
+
+
+
+# About dev
+
+A arquitetura segue a arquitetura do framework, bem como os padrões que seguem os padrões comuns das linguagens.
