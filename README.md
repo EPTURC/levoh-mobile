@@ -13,7 +13,7 @@ npm install -g ionic
 # Clone project
 git clone https://github.com/EPTURC/levoh-mobile.git
 
-# Execute project
+# running the project
 
 1 - In CMD/terminal, find the project directory
 2 - Write the command: 'ionic serve --lab'
