@@ -15,7 +15,7 @@ git clone https://github.com/EPTURC/levoh-mobile.git
 
 # Execute project
 
-1 - In CMD, find the project directory
+1 - In CMD/terminal, find the project directory
 2 - Write the command: 'ionic serve --lab'
 
 
