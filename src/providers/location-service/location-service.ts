@@ -17,7 +17,7 @@ export class LocationServiceProvider {
   private URL_SERVER = 'https://epturc-levo.herokuapp.com/api/v1/vehicles/';
   vehicles:Vehicle[];
   location = new Localization();
-  randomId:Number;
+  randomId:any;
 
 
   constructor(private geolocation: Geolocation, public toastCtrl: ToastController
@@ -46,35 +46,39 @@ export class LocationServiceProvider {
                         +'Long: '+this.location.longitude);
             
             
-       
+     
             //get vehicles
             this.vehicleService.getVehiclesList().subscribe(
               (resp)=>{
                 
                 this.vehicles = resp;
-                this.randomId = this.getRandomInt(0,this.vehicles.length-1)//pegando um ID de veiculo qualquer
+                
+                
+                this.randomId = this.getRandomInt(0,this.vehicles.length)//pegando um ID de veiculo qualquer
+                
+                this.randomId = this.vehicles[this.randomId].id;
                 console.log("Lista recebida");
                 console.log(resp);
                 console.log('id Selecionado: '+this.randomId);
-       
+                
+                //sending location
+                this.sendLocationByVehicleId(this.randomId,this.location)
+                .subscribe(
+                  (resp)=>{
+                      console.log(resp);
+                    
+                      this.presentToast('Localização enviada para a central');
+                  },(err)=>{
+                    console.log(err);
+                    this.presentToast('problema no envio da localização');
+                  }
+                );
+
+
+
               }//(resp)=>{
             );
-           
-           
-            //sending location
-       this.sendLocationByVehicleId(this.randomId,this.location)
-                  .subscribe(
-                    (resp)=>{
-                        console.log(resp);
-                       
-                        this.presentToast('Localização enviada para a central');
-                    },(err)=>{
-                      console.log(err);
-                      this.presentToast('problema no envio da localização');
-                    }
-                  );
-
-     
+         
      
      }//(resp) => {
     ).catch((error) => {
