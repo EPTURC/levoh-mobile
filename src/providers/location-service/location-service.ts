@@ -39,7 +39,7 @@ export class LocationServiceProvider {
       
         
             // location received
-            this.location.latitude = resp.coords.longitude;
+            this.location.latitude = resp.coords.latitude;
             this.location.longitude = resp.coords.longitude;
             console.log('localização obtida: Lat: '
                         +this.location.latitude
