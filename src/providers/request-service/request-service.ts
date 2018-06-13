@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 /*
@@ -11,7 +11,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class RequestServiceProvider {
   
-   URL_SERVER: String = 'https://epturc-levo.herokuapp.com/api/v1/';
+   URL_SERVER= 'https://epturc-levo.herokuapp.com/api/v1/';
   constructor(public http: HttpClient) {
     
    // headers.append('Access-Control-Allow-Origin' , '*');
@@ -20,23 +20,17 @@ export class RequestServiceProvider {
   // let options = new RequestOptions({ headers: headers });
   }
 
+  /**
+   * 
+   * @param url - parte da url que completa a a url do host
+   * @returns - Retorna um Observable que deve ser tratado
+   */
   getRequest(url){
-    let retorno;
-    
-   
-    
-    this.http.get(this.URL_SERVER+url).subscribe(
-      (res)=> {
-        console.log(res);
-        
-        retorno = res;
-      }
-    );
-    return retorno;
+    return this.http.get(this.URL_SERVER+url);
   }
 
-  postRequest(url){
-    this.http.post
+  postRequest(url, body){
+   return this.http.post(this.URL_SERVER+url, body);
   }
 
 }

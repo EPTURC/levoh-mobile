@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController, ToastController } from 'ionic-angular';
 import { Task } from '../../models/task';
-import { RequestServiceProvider } from '../../providers/request-service/request-service';
+import { TaskDetailsPage } from '../task-details/task-details';
+import { LocationServiceProvider } from '../../providers/location-service/location-service';
+import { NewOccurrencePage } from '../new-occurrence/new-occurrence';
+
+
 
 @Component({
   selector: 'page-home',
@@ -13,10 +17,20 @@ export class HomePage {
 
       constructor(public navCtrl: NavController
         , public toastCtrl: ToastController
-      , requestServiceProvider: RequestServiceProvider) {
+        ,locationServiceProvider: LocationServiceProvider) {
 
-        let response = requestServiceProvider.getRequest('drivers');
-        //console.log(response);
+         // Seta intervalo de execução do metodo getLocation
+      setInterval(() => {        
+        locationServiceProvider.sendDeviceLocation();
+      },60000);
+
+
+      
+
+      
+
+       
+      
         
         //mook
         this.taskList = [
@@ -34,13 +48,18 @@ export class HomePage {
       }
 
       selectedTask(task: Task){
-        console.log(task.description);
         
+        this.navCtrl.push(TaskDetailsPage, {
+          selectedTask: task
+        });
+      }
+
+      newOccurrence(){
+        this.navCtrl.push(NewOccurrencePage);
       }
 
 
-
-
   
+     
 
 }

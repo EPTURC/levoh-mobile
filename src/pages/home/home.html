@@ -5,18 +5,40 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
 
-    <ion-item (click)="selectedTask(task)" *ngFor = "let task of taskList">
+   
+
+    <ion-card (click)="selectedTask(task)" *ngFor = "let task of taskList"> 
+
+        <ion-item>
+          <ion-avatar item-start>
+            <img src="../assets/imgs/delivery-icon.png">
+          </ion-avatar>
+          <h1>{{task.tittle}}</h1>
+          <p>November 5, 1955</p>
+        </ion-item>
+  
+        <ion-card-content>
+          <p>Descrição: {{task.description}}</p>
+        </ion-card-content>
+        <ion-item-divider color="light">
+            <ion-icon item-start name="bookmark"></ion-icon>
+          <p>status:</p>
+        </ion-item-divider>
+        <ion-item-divider color="light">
+            <ion-icon item-start name="calendar"></ion-icon>
+            <p>prazo final:</p>
+        </ion-item-divider>
+        <ion-item-divider color="light">
+            <ion-icon item-start name="pin" ></ion-icon>
+            <p>Destino:</p>
+        </ion-item-divider>
         
-      <h2>{{task.tittle}}</h2>
-      <p>{{task.description}}</p>
-    </ion-item>
-
-    
-
-
-
-
-  </ion-list>
+      </ion-card>
+      <ion-fab top right edge>
+          <button ion-fab color="danger" (click)="newOccurrence()"> 
+              <ion-icon name="close-circle"></ion-icon>
+          </button>
+        </ion-fab>
+  
 </ion-content>

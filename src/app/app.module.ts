@@ -3,8 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
+
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 
@@ -14,12 +13,19 @@ import { LocationServiceProvider } from '../providers/location-service/location-
 import { Geolocation } from '@ionic-native/geolocation';
 import { RequestServiceProvider } from '../providers/request-service/request-service';
 import { HttpClientModule } from '@angular/common/http';
+import { TaskDetailsPage } from '../pages/task-details/task-details';
+import { LoginPage } from '../pages/login/login';
+import { NewOccurrencePage } from '../pages/new-occurrence/new-occurrence';
+import { FeedPage } from '../pages/feed/feed';
+import { VehicleServiceProvider } from '../providers/vehicle-service/vehicle-service';
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
     HomePage,
+    TaskDetailsPage,
+    NewOccurrencePage,
+    FeedPage,
+    LoginPage,
     TabsPage
   ],
   imports: [
@@ -30,9 +36,11 @@ import { HttpClientModule } from '@angular/common/http';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
     HomePage,
+    TaskDetailsPage,
+    NewOccurrencePage,
+    FeedPage,
+    LoginPage,
     TabsPage
   ],
   providers: [
@@ -41,7 +49,9 @@ import { HttpClientModule } from '@angular/common/http';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     LocationServiceProvider,
     Geolocation,
-    RequestServiceProvider
+    RequestServiceProvider,
+    VehicleServiceProvider,
+    LocationServiceProvider
   ]
 })
 export class AppModule {}
