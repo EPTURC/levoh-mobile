@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
+import { VehicleServiceProvider } from '../../providers/vehicle-service/vehicle-service';
 
 /**
  * Generated class for the LoginPage page.
@@ -16,7 +17,15 @@ import { TabsPage } from '../tabs/tabs';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams
+    ,vehicleService: VehicleServiceProvider) {
+
+      vehicleService.getAll().subscribe(
+        (resp)=>{
+          console.log(resp);
+          
+        }
+      );
   }
 
   indetification(){

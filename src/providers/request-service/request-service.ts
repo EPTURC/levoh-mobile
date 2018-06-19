@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
 /*
   Generated class for the RequestServiceProvider provider.
@@ -9,15 +10,14 @@ import { Injectable } from '@angular/core';
 */
 
 @Injectable()
-export class RequestServiceProvider {
+export class RequestServiceProvider<T> {
   
-   URL_SERVER= 'https://epturc-levo.herokuapp.com/api/v1/';
-  constructor(public http: HttpClient) {
-    
-   // headers.append('Access-Control-Allow-Origin' , '*');
-   // headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
-  // let headers = new Headers({ 'Content-Type': 'application/json' });
-  // let options = new RequestOptions({ headers: headers });
+  
+  URL_SERVER= 'https://epturc-levo.herokuapp.com/api/v1/';
+  
+
+  constructor(public http: HttpClient, baseUrl:String) {
+    this.URL_SERVER = this.URL_SERVER + baseUrl;
   }
 
   /**
@@ -25,12 +25,39 @@ export class RequestServiceProvider {
    * @param url - parte da url que completa a a url do host
    * @returns - Retorna um Observable que deve ser tratado
    */
-  getRequest(url){
-    return this.http.get(this.URL_SERVER+url);
+  public getById(id): Observable<T>{
+    return this.http.get<T>(this.URL_SERVER+id);
   }
 
-  postRequest(url, body){
-   return this.http.post(this.URL_SERVER+url, body);
+  /**
+   * 
+   */
+  public insert(){}
+
+  /**
+   * 
+   * @param entity 
+   */
+  public update(entity: T): Observable<T>{
+    return null;
   }
+
+  /**
+   * 
+   * @param entity 
+   */
+  public remove(entity: T): Observable<T>{
+    return null;
+  }
+
+  /**
+   * 
+   * @param url 
+   */
+  public getAll():Observable<T[]>{
+    return this.http.get<T[]>(this.URL_SERVER);
+  }
+
+
 
 }

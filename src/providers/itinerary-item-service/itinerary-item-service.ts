@@ -1,21 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Vehicle } from '../../models/vehicle';
 import { RequestServiceProvider } from '../request-service/request-service';
+import { ItineraryItem } from '../../models/ItineraryItem';
 
 /*
-  Generated class for the VehicleServiceProvider provider.
+  Generated class for the ItineraryItemServiceProvider provider.
 
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
 @Injectable()
-export class VehicleServiceProvider extends RequestServiceProvider<Vehicle>{
-   
-  constructor(public http: HttpClient ) {
-    super(http,'vehicles');
-  }
+export class ItineraryItemServiceProvider extends RequestServiceProvider<ItineraryItem>{
 
   
+
+  
+  constructor(public http: HttpClient) {
+    super(http, 'itineraries/');
+  }
 
 }

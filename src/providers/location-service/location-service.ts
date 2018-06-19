@@ -27,7 +27,7 @@ export class LocationServiceProvider {
   }
 
   /**
-   * 
+   * this method send the current location
    */
   sendDeviceLocation(){
   //;// console.log(this.location.);
@@ -48,7 +48,7 @@ export class LocationServiceProvider {
             
      
             //get vehicles
-            this.vehicleService.getVehiclesList().subscribe(
+            this.vehicleService.getAll().subscribe(
               (resp)=>{
                 
                 this.vehicles = resp;
@@ -82,7 +82,7 @@ export class LocationServiceProvider {
      
      }//(resp) => {
     ).catch((error) => {
-      console.log('Problema ao obter a localização');
+      this.presentToast('Problema ao obter a localização');
      });
 
   }//sendDeviceLocation()

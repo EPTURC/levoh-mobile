@@ -18,6 +18,13 @@ import { LoginPage } from '../pages/login/login';
 import { NewOccurrencePage } from '../pages/new-occurrence/new-occurrence';
 import { FeedPage } from '../pages/feed/feed';
 import { VehicleServiceProvider } from '../providers/vehicle-service/vehicle-service';
+import { ObjectsSessionProvider } from '../providers/objects-session/objects-session';
+import { UserServiceProvider } from '../providers/user-service/user-service';
+import { DriverServiceProvider } from '../providers/driver-service/driver-service';
+import { TaskServiceProvider } from '../providers/task-service/task-service';
+import { ItineraryServiceProvider } from '../providers/itinerary-service/itinerary-service';
+import { DeviceLocationServiceProvider } from '../providers/device-location-service/device-location-service';
+import { ItineraryItemServiceProvider } from '../providers/itinerary-item-service/itinerary-item-service';
 @NgModule({
   declarations: [
     MyApp,
@@ -51,7 +58,14 @@ import { VehicleServiceProvider } from '../providers/vehicle-service/vehicle-ser
     Geolocation,
     RequestServiceProvider,
     VehicleServiceProvider,
-    LocationServiceProvider
+    LocationServiceProvider,
+    ObjectsSessionProvider,
+    UserServiceProvider,
+    DriverServiceProvider,
+    TaskServiceProvider,
+    ItineraryServiceProvider,
+    DeviceLocationServiceProvider,
+    ItineraryItemServiceProvider
   ]
 })
 export class AppModule {}

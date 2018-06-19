@@ -1,7 +1,10 @@
+import { Localization } from './Localization';
+
 export class Vehicle{
-     id: Number;
-    company_id: String;
-    locations: Location[];
+    public id: Number;
+    public company_id: String;
+    public status: String;
+    public lastLocation: Localization;
 
     constructor(){
 

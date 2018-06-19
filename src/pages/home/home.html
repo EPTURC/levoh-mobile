@@ -6,39 +6,73 @@
 
 <ion-content padding>
 
-   
-
     <ion-card (click)="selectedTask(task)" *ngFor = "let task of taskList"> 
 
-        <ion-item>
-          <ion-avatar item-start>
-            <img src="assets/imgs/delivery-icon.png">
-          </ion-avatar>
-          <h1>{{task.tittle}}</h1>
-          <p>November 5, 1955</p>
-        </ion-item>
-  
+        <div *ngIf="task.status == 1">
+          <ion-item>
+            <ion-avatar item-start>
+              <img src="assets/imgs/truck.png">
+            </ion-avatar>
+            <h1>{{task.tittle}}</h1>
+            <p>November 5, 1955</p>
+          </ion-item>
+        </div>
+
+        <div *ngIf="task.status == 2">
+            <ion-item>
+              <ion-avatar item-start>
+                <img src="assets/imgs/truck-full.png">
+              </ion-avatar>
+              <h1>{{task.tittle}}</h1>
+              <p>November 5, 1955</p>
+            </ion-item>
+        </div>
+
+        <div *ngIf="task.status == 3">
+            <ion-item>
+              <ion-avatar item-start>
+                <img src="assets/imgs/truck-full-stoped.png">
+              </ion-avatar>
+              <h1>{{task.tittle}}</h1>
+              <p>November 5, 1955</p>
+            </ion-item>
+        </div>
+
+
         <ion-card-content>
           <p>Descrição: {{task.description}}</p>
         </ion-card-content>
+
         <ion-item-divider color="light">
             <ion-icon item-start name="bookmark"></ion-icon>
-          <p>status:</p>
+          <p>status: {{task.status}}</p>
         </ion-item-divider>
+
+
         <ion-item-divider color="light">
-            <ion-icon item-start name="calendar"></ion-icon>
-            <p>prazo final:</p>
+            <ion-icon item-start name="pin-outline"></ion-icon>
+            <p>Origem:</p>
         </ion-item-divider>
+
         <ion-item-divider color="light">
             <ion-icon item-start name="pin" ></ion-icon>
             <p>Destino:</p>
         </ion-item-divider>
+
+        <ion-item-divider color="light">
+            <ion-icon item-start name="ios-cube-outline"></ion-icon>
+            <p>Produto:</p>
+        </ion-item-divider>
         
       </ion-card>
+
+
       <ion-fab top right edge>
           <button ion-fab color="danger" (click)="newOccurrence()"> 
               <ion-icon name="close-circle"></ion-icon>
           </button>
         </ion-fab>
-  
+      
+
+
 </ion-content>
