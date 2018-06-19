@@ -9,6 +9,7 @@ export class TabsPage {
 
   tasks = HomePage;
   feed = FeedPage;
+
   
 
   constructor() {

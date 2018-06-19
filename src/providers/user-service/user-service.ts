@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ObjectsSessionProvider } from '../objects-session/objects-session';
+
 import { User } from '../../models/User';
 import { RequestServiceProvider } from '../request-service/request-service';
 
@@ -16,8 +16,7 @@ export class UserServiceProvider extends RequestServiceProvider<User>{
   userList: User[];
   
 
-  constructor(public http: HttpClient
-    , public session: ObjectsSessionProvider) {
+  constructor(public http: HttpClient) {
     super(http, 'users');
 
   }

@@ -14,6 +14,7 @@ export class DriverServiceProvider extends RequestServiceProvider<Driver>{
 
   constructor(public http: HttpClient) {
     super(http, 'drivers');
+  
   }
 
 }

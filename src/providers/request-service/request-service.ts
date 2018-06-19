@@ -13,9 +13,10 @@ import { Observable } from 'rxjs/Observable';
 export class RequestServiceProvider<T> {
   
   
-  URL_SERVER= 'https://epturc-levo.herokuapp.com/api/v1/';
+  URL_SERVER = 'https://epturc-levo.herokuapp.com/api/v1/';
   
 
+  
   constructor(public http: HttpClient, baseUrl:String) {
     this.URL_SERVER = this.URL_SERVER + baseUrl;
   }

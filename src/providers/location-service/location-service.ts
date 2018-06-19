@@ -20,9 +20,10 @@ export class LocationServiceProvider {
   randomId:any;
 
 
-  constructor(private geolocation: Geolocation, public toastCtrl: ToastController
-  ,private vehicleService: VehicleServiceProvider
-  ,private http:HttpClient) {
+  constructor(private geolocation: Geolocation
+    , public toastCtrl: ToastController
+    ,private vehicleService: VehicleServiceProvider
+    ,private http:HttpClient) {
     
   }
 

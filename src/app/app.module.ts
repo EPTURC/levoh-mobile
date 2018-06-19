@@ -18,7 +18,6 @@ import { LoginPage } from '../pages/login/login';
 import { NewOccurrencePage } from '../pages/new-occurrence/new-occurrence';
 import { FeedPage } from '../pages/feed/feed';
 import { VehicleServiceProvider } from '../providers/vehicle-service/vehicle-service';
-import { ObjectsSessionProvider } from '../providers/objects-session/objects-session';
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { DriverServiceProvider } from '../providers/driver-service/driver-service';
 import { TaskServiceProvider } from '../providers/task-service/task-service';
@@ -59,13 +58,13 @@ import { ItineraryItemServiceProvider } from '../providers/itinerary-item-servic
     RequestServiceProvider,
     VehicleServiceProvider,
     LocationServiceProvider,
-    ObjectsSessionProvider,
     UserServiceProvider,
     DriverServiceProvider,
     TaskServiceProvider,
     ItineraryServiceProvider,
     DeviceLocationServiceProvider,
     ItineraryItemServiceProvider
+   
   ]
 })
 export class AppModule {}

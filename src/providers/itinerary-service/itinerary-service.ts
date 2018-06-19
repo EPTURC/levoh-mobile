@@ -10,10 +10,14 @@ import { RequestServiceProvider } from '../request-service/request-service';
   and Angular DI.
 */
 @Injectable()
-export class ItineraryServiceProvider extends RequestServiceProvider<Itinerary>{
+export class ItineraryServiceProvider {
 
   constructor(public http: HttpClient) {
-   super(http, 'itineraries');
+   //super(http, 'itineraries');
   }
+
+
+
+
 
 }
