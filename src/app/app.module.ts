@@ -24,6 +24,8 @@ import { TaskServiceProvider } from '../providers/task-service/task-service';
 import { ItineraryServiceProvider } from '../providers/itinerary-service/itinerary-service';
 import { DeviceLocationServiceProvider } from '../providers/device-location-service/device-location-service';
 import { ItineraryItemServiceProvider } from '../providers/itinerary-item-service/itinerary-item-service';
+import { IonicStorageModule } from '@ionic/storage';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -37,7 +39,12 @@ import { ItineraryItemServiceProvider } from '../providers/itinerary-item-servic
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot({
+      name: "levoMobile",
+      storeName: 'session',
+      driverOrder: ['indexeddb']
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -16,14 +16,14 @@ import { Task } from '../../models/task';
 })
 export class TaskDetailsPage {
 
-  public task: Task;
+ // public task: Task;
   public isToggled: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams
     ,private toast: ToastController ) {
 
-    this.task = navParams.get('selectedTask');
-    console.log(this.task.tittle);
+   // this.task = navParams.get('selectedTask');
+   // console.log(this.task.tittle);
     
   }
 

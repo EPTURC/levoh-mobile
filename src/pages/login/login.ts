@@ -19,17 +19,9 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams
-    ,vehicleService: VehicleServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
 
-      vehicleService.getAll().subscribe(
-
-        (resp)=>{
-          console.log(resp);
-          
-        }
-        
-      );
+     
 
   
   }

@@ -27,6 +27,8 @@ export class RequestServiceProvider<T> {
    * @returns - Retorna um Observable que deve ser tratado
    */
   public getById(id): Observable<T>{
+    console.log(this.URL_SERVER+id);
+    
     return this.http.get<T>(this.URL_SERVER+id);
   }
 
