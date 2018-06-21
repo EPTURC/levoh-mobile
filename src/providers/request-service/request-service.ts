@@ -12,7 +12,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class RequestServiceProvider<T> {
   
-  
+  ROOT_URL = 'https://epturc-levo.herokuapp.com/api/v1/';
   URL_SERVER = 'https://epturc-levo.herokuapp.com/api/v1/';
   
 
@@ -35,7 +35,9 @@ export class RequestServiceProvider<T> {
   /**
    * 
    */
-  public insert(){}
+  public insert(){
+    
+  }
 
   /**
    * 

@@ -19,4 +19,11 @@ export class ItineraryItemServiceProvider extends RequestServiceProvider<Itinera
     super(http, 'itineraries/');
   }
 
+  public sendItineraryItem(itineraryId, itineraryItem, id){
+    let url = this.URL_SERVER+itineraryId+'/itinerary_items/'+id;
+    
+    
+   return this.http.put(url, itineraryItem);
+  }
+
 }

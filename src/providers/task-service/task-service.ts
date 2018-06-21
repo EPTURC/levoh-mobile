@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RequestServiceProvider } from '../request-service/request-service';
 import { Task } from '../../models/task';
+import { RequestServiceProvider } from '../request-service/request-service';
+
 
 /*
   Generated class for the TaskServiceProvider provider.
@@ -10,10 +11,10 @@ import { Task } from '../../models/task';
   and Angular DI.
 */
 @Injectable()
-export class TaskServiceProvider {
+export class TaskServiceProvider extends RequestServiceProvider<Task>{
 
   constructor(public http: HttpClient) {
-   // super(http, 'tasks');
+    super(http, 'tasks');
   }
 
 }

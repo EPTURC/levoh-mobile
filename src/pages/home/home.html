@@ -19,7 +19,7 @@
 
   <div *ngIf="itineraty != null" >
 
-    <ion-card (click)="selectedTask(item)" *ngFor = "let item of itineraty.items"> 
+    <ion-card (click)="selectedItem(item)" *ngFor = "let item of itineraty.items"> 
 
 
         <div *ngIf="item.task.type == 'Coleta'">

@@ -18,13 +18,23 @@
     <ion-list>
         <ion-item>
           <ion-label>Tipo</ion-label>
-          <ion-select item-height="100%" [(ngModel)]="occurrenceType">
+          <ion-select item-height="100%" [(ngModel)]="occurrenceType" >
 
-            <ion-option value="nes">Veiculo danificado</ion-option>
-            <ion-option value="n64">Via interditada</ion-option>
+            <ion-option value="Veiculo danificado">Veiculo danificado</ion-option>
+            <ion-option value="Via interditada">Via interditada</ion-option>
             
           </ion-select>
         </ion-item>
       </ion-list>
+
+    
+  
+        <ion-item>
+          
+          <ion-textarea [(ngModel)]="description" placeholder="Observações..." ></ion-textarea>
+          
+        </ion-item>
+        <button ion-button (click)="sendNewOccurrence()" block>Enviar ocorrência</button>
+     
 
 </ion-content>

@@ -2,8 +2,9 @@ import { Task } from "./task";
 
 export class ItineraryItem{
 
+    public id: Number;
     public index: Number;
-    public done: String;
+    public done: Boolean;
     public task: Task;
     
 

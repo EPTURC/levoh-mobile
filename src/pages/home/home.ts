@@ -4,12 +4,12 @@ import { Task } from '../../models/task';
 import { TaskDetailsPage } from '../task-details/task-details';
 import { LocationServiceProvider } from '../../providers/location-service/location-service';
 import { NewOccurrencePage } from '../new-occurrence/new-occurrence';
-
 import { ItineraryServiceProvider } from '../../providers/itinerary-service/itinerary-service';
 import { Itinerary } from '../../models/Itinerary';
 import { Driver } from '../../models/Driver';
 import { DriverServiceProvider } from '../../providers/driver-service/driver-service';
 import { ItineraryItem } from '../../models/ItineraryItem';
+import { PersistenceServiceProvider } from '../../providers/persistence-service/persistence-service';
 
 
 
@@ -29,13 +29,11 @@ export class HomePage {
         , public toastCtrl: ToastController
         ,locationServiceProvider: LocationServiceProvider
       , driverService: DriverServiceProvider
-    , itineraryService: ItineraryServiceProvider) {
+    , itineraryService: ItineraryServiceProvider
+  , persistenceService: PersistenceServiceProvider) {
 
-         // Seta intervalo de execução do metodo getLocation
-    /*  setInterval(() => {        
-        locationServiceProvider.sendDeviceLocation();
-      },20000);
-*/
+      
+
 
 
   driverService.getAll().subscribe(
@@ -45,14 +43,26 @@ export class HomePage {
             let randomIndex = this.getRandomInt(0, this.driverList.length);
             this.selectedDriver = this.driverList[randomIndex];
             console.log('idDriver: '+this.selectedDriver.id);
-           // this.selectedDriver.id  =17;
+            persistenceService.setDriverSession(this.selectedDriver).subscribe(
+              (resp)=>{
+                console.log(resp);
+                
+              }
+            );
+            this.selectedDriver.id = 21;
           //Buscando as tarefas do usuári sorteado
           itineraryService.getById(this.selectedDriver.id).subscribe(
             (resp)=>{
+
+                 // Seta intervalo de execução do metodo getLocation
+                setInterval(() => {        
+                  locationServiceProvider.sendDeviceLocation();
+                },20000);
+
               this.itineraty = resp;
               console.log(this.itineraty);
               
-              this.itineraty.items = this.itineraty.items;
+              
               
             },(error)=>{
               this.itineraty = null;
@@ -77,9 +87,12 @@ export class HomePage {
           return 'Em andamento';
       }
 
-      selectedTask(task: Task){
+      selectedItem(item: ItineraryItem){
         
-        this.navCtrl.push(TaskDetailsPage);
+        this.navCtrl.push(TaskDetailsPage, {
+          itineraryParam: this.itineraty,
+          itemSelected: item
+        });
       }
 
       newOccurrence(){

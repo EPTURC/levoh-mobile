@@ -1,10 +1,10 @@
 export class Localization{
-    public latitude: Number;
-    public longitude: Number;
+    public latitude: String;
+    public longitude: String;
  
     constructor(){
  
     }
 
- 
+
  }

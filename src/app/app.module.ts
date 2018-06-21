@@ -25,6 +25,8 @@ import { ItineraryServiceProvider } from '../providers/itinerary-service/itinera
 import { DeviceLocationServiceProvider } from '../providers/device-location-service/device-location-service';
 import { ItineraryItemServiceProvider } from '../providers/itinerary-item-service/itinerary-item-service';
 import { IonicStorageModule } from '@ionic/storage';
+import { PersistenceServiceProvider } from '../providers/persistence-service/persistence-service';
+import { OccurrenceServiceProvider } from '../providers/occurrence-service/occurrence-service';
 
 @NgModule({
   declarations: [
@@ -70,7 +72,9 @@ import { IonicStorageModule } from '@ionic/storage';
     TaskServiceProvider,
     ItineraryServiceProvider,
     DeviceLocationServiceProvider,
-    ItineraryItemServiceProvider
+    ItineraryItemServiceProvider,
+    PersistenceServiceProvider,
+    OccurrenceServiceProvider
    
   ]
 })

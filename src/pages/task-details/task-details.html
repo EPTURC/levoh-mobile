@@ -22,12 +22,44 @@
  
 
   <ion-item>
-    <ion-label>Concluída</ion-label>
+    <label>O itinerário ficará inativo em caso de alguma ocorrência.</label>
+    <ion-label>Itinerário Ativo:</ion-label>
     <ion-toggle (ngModelChange)="toggleChange(value)" [(ngModel)]="isToggled" color="energized"></ion-toggle>
   </ion-item>
 
+  <ion-list>
+      <ion-item>
+        <ion-label>Status</ion-label>
+        <ion-select (ionChange)="seletedStatus()" 
+                [(ngModel)]="occurrenceType" interface="popover">
+
+          <ion-option value="Em andamento">Em andamento</ion-option>
+          <ion-option value="Concluído">Concluído</ion-option>
+          <ion-option value="Pausado">Pausado</ion-option>
+          
+        </ion-select>
+      </ion-item>
+    </ion-list>
+
+
+
+  <ion-item-divider color="light">
+    <ion-icon item-start name="contact" ></ion-icon>
+    <p>Responsável: {{itemSelected.task.responsible_name}}</p>
+</ion-item-divider>
+
+  <ion-item-divider color="light">
+      <ion-icon item-start name="pin" ></ion-icon>
+      <p>Destino: {{itemSelected.task.local}}</p>
+  </ion-item-divider>
+
+  <ion-item-divider color="light">
+      <ion-icon item-start name="ios-cube-outline"></ion-icon>
+      <p>Produto: {{itemSelected.task.object}}</p>
+  </ion-item-divider>
+
   <ion-fab bottom right>
-    <button ion-fab> Enviar
+    <button (click)="sendChange()" ion-fab> Enviar
       
     </button>
   </ion-fab>

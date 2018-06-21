@@ -2,10 +2,11 @@
 import { Injectable } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import { ToastController } from 'ionic-angular';
-import { VehicleServiceProvider } from '../vehicle-service/vehicle-service';
 import { Vehicle } from '../../models/vehicle';
 import { HttpClient } from '@angular/common/http';
 import { Localization } from '../../models/Localization';
+import { PersistenceServiceProvider } from '../persistence-service/persistence-service';
+import { Itinerary } from '../../models/Itinerary';
 /*
   Generated class for the LocationServiceProvider provider.
 
@@ -15,15 +16,17 @@ import { Localization } from '../../models/Localization';
 @Injectable()
 export class LocationServiceProvider {
   private URL_SERVER = 'https://epturc-levo.herokuapp.com/api/v1/vehicles/';
-  vehicles:Vehicle[];
+  vehicle:Vehicle;
   location = new Localization();
   randomId:any;
+
+  private itinerarySession: Itinerary;
 
 
   constructor(private geolocation: Geolocation
     , public toastCtrl: ToastController
-    ,private vehicleService: VehicleServiceProvider
-    ,private http:HttpClient) {
+    ,private http:HttpClient
+    ,private persistenceService: PersistenceServiceProvider) {
     
   }
 
@@ -37,33 +40,24 @@ export class LocationServiceProvider {
    // console.log('location called');
     this.geolocation.getCurrentPosition().then(
       (resp) => {
-      
+        
         
             // location received
-            this.location.latitude = resp.coords.latitude;
-            this.location.longitude = resp.coords.longitude;
-            console.log('localização obtida: Lat: '
-                        +this.location.latitude
-                        +'Long: '+this.location.longitude);
+            this.location.latitude = resp.coords.latitude+'';
+            this.location.longitude = resp.coords.longitude+'';
+            
             
             
      
-            //get vehicles
-            this.vehicleService.getAll().subscribe(
-              (resp)=>{
-                
-                this.vehicles = resp;
-                
-                
-                this.randomId = this.getRandomInt(0,this.vehicles.length)//pegando um ID de veiculo qualquer
-                
-                this.randomId = this.vehicles[this.randomId].id;
-                console.log("Lista recebida");
-                console.log(resp);
-                console.log('id Selecionado: '+this.randomId);
-                
+            //get vehicle in Session
+           this.persistenceService.getItinerarySession().subscribe(
+            (resp)=>{
+              this.itinerarySession = resp;
+              this.vehicle = this.itinerarySession.vehicle;
+              console.log('vehicle ID: '+this.vehicle.id);
+              
                 //sending location
-                this.sendLocationByVehicleId(this.randomId,this.location)
+                this.sendLocationByVehicleId(this.vehicle.id,this.location)
                 .subscribe(
                   (resp)=>{
                       console.log(resp);
@@ -75,10 +69,15 @@ export class LocationServiceProvider {
                   }
                 );
 
+            }
+          );
+                
+              
+               
 
 
-              }//(resp)=>{
-            );
+
+             
          
      
      }//(resp) => {
