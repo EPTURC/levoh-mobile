@@ -1,0 +1,68 @@
+#!/bin/python
+from os.path import expanduser
+from os.path import join
+from os.path import isdir
+from os import listdir
+from os import environ
+from os import pathsep
+from subprocess import call
+import stat
+import os
+
+def find_dir(options):
+    for p in options:
+        if isdir(p):
+            return p
+
+def find_android_sdk():
+    home = expanduser('~')
+    paths = [
+        join(home, 'Android', 'Sdk'),
+        join(home,'Library' , 'Android', 'sdk'),
+        join(home,'.local', 'share' , 'android', 'sdk'),
+        join(home,'AppData', 'Local' , 'Android', 'sdk'),
+        join('/opt', 'android', 'sdk')
+    ]
+    return find_dir(paths)
+
+def find_android_studio():
+    home = expanduser('~')
+    paths = [
+        join(home, ".local", "opt", "android-studio"),
+        join('/Applications', 'Android Studio'),
+        join('/opt', 'android-studio')
+    ]
+    return find_dir(paths)
+
+def find_gradle(android_studio_path):
+    base = join(android_studio_path, 'gradle')
+    for f in listdir(base):
+        if 'gradle' in f:
+            return join(base, f)
+
+def find_java(android_studio_path):
+    p = join(android_studio_path, 'jre')
+    if isdir(p):
+        return p
+
+android_sdk = find_android_sdk()
+android_studio = find_android_studio()
+gradle_home = find_gradle(android_studio)
+java_home = find_java(android_studio)
+
+gradle_bin = join(gradle_home, 'bin', 'gradle')
+
+if not (stat.S_IXUSR & os.stat(gradle_bin)[stat.ST_MODE]):
+    try:
+        os.chmod(gradle_bin, 755)
+    except PermissionError:
+        print(f"Grant execution permission to {gradle_bin}")
+        print(f"On *nix systems run `sudo chmod +x {gradle_bin}`")
+        exit(1)
+
+environ['PATH'] = pathsep.join([join(gradle_home, 'bin'), join(java_home, 'bin'), environ['PATH']])
+environ['GRADLE_HOME'] = gradle_home
+environ['JAVA_HOME'] = java_home
+environ['ANDROID_HOME'] = android_sdk
+
+call(['ionic', 'cordova', 'run', 'android'])
