@@ -27,6 +27,7 @@ import { ItineraryItemServiceProvider } from '../providers/itinerary-item-servic
 import { IonicStorageModule } from '@ionic/storage';
 import { PersistenceServiceProvider } from '../providers/persistence-service/persistence-service';
 import { OccurrenceServiceProvider } from '../providers/occurrence-service/occurrence-service';
+import { SuperTabsModule } from 'ionic2-super-tabs';
 
 @NgModule({
   declarations: [
@@ -42,8 +43,9 @@ import { OccurrenceServiceProvider } from '../providers/occurrence-service/occur
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
+    SuperTabsModule.forRoot(),
     IonicStorageModule.forRoot({
-      name: "levoMobile",
+      name: "levo",
       storeName: 'session',
       driverOrder: ['indexeddb']
     })
