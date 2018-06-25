@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { Localization } from '../../models/Localization';
 import { PersistenceServiceProvider } from '../persistence-service/persistence-service';
 import { Itinerary } from '../../models/Itinerary';
+import { Session } from '../../models/Session';
 /*
   Generated class for the LocationServiceProvider provider.
 
@@ -46,11 +47,23 @@ export class LocationServiceProvider {
             this.location.latitude = resp.coords.latitude+'';
             this.location.longitude = resp.coords.longitude+'';
             
-            
-            
-     
+            this.itinerarySession = Session.getItinerary();
+            this.vehicle = this.itinerarySession.vehicle;
+            //sending location
+            this.sendLocationByVehicleId(this.vehicle.id,this.location)
+            .subscribe(
+              (resp)=>{
+                  console.log(resp);
+                
+                  this.presentToast('Localização enviada para a central');
+              },(err)=>{
+                console.log(err);
+                this.presentToast('problema no envio da localização');
+              }
+            );
+        
             //get vehicle in Session
-           this.persistenceService.getItinerarySession().subscribe(
+          /* this.persistenceService.getItinerarySession().subscribe(
             (resp)=>{
               this.itinerarySession = resp;
               this.vehicle = this.itinerarySession.vehicle;
@@ -70,7 +83,7 @@ export class LocationServiceProvider {
                 );
 
             }
-          );
+           );*/
                 
               
                

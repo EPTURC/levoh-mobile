@@ -27,7 +27,7 @@ import { ItineraryItemServiceProvider } from '../providers/itinerary-item-servic
 import { IonicStorageModule } from '@ionic/storage';
 import { PersistenceServiceProvider } from '../providers/persistence-service/persistence-service';
 import { OccurrenceServiceProvider } from '../providers/occurrence-service/occurrence-service';
-
+import { LocalNotifications } from '@ionic-native/local-notifications';
 @NgModule({
   declarations: [
     MyApp,
@@ -74,7 +74,8 @@ import { OccurrenceServiceProvider } from '../providers/occurrence-service/occur
     DeviceLocationServiceProvider,
     ItineraryItemServiceProvider,
     PersistenceServiceProvider,
-    OccurrenceServiceProvider
+    OccurrenceServiceProvider,
+    LocalNotifications
    
   ]
 })

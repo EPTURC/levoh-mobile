@@ -1,76 +1,79 @@
 <ion-header>
+     
   <ion-navbar>
-    <ion-title>Principal</ion-title>
+      <img  style="float: left;" width="8%" src="assets/imgs/icon.png">
+    <ion-title style="float: left;" >Principal</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
 
-  <div *ngIf="itineraty == null" >
-    <ion-card>
-      <ion-card-header>
-        Nenhum itinerário cadastrado.
-      </ion-card-header>
-      <ion-card-content>
-        Aguarde ou entre em contato com a central.
-      </ion-card-content>
-    </ion-card>
-  </div>
+  <div *ngIf="itineraty == null" style="text-align: center;">
+    <br/>
+      <img src="assets/imgs/warning.png">
+      <br/>
+      <h3>Você não tem ininerário ativo.</h3>
+  </div><!-- <div *ngIf="itineraty == null" > -->
 
   <div *ngIf="itineraty != null" >
 
-    <ion-card (click)="selectedItem(item)" *ngFor = "let item of itineraty.items"> 
+    <div id="itineraryOn" *ngIf="itineraty.status == 'ativo'">
+        <ion-card (click)="selectedItem(item)" *ngFor = "let item of itineraty.items"> 
 
 
-        <div *ngIf="item.task.type == 'Coleta'">
-          <ion-item>
-            <ion-avatar item-start>
-              <img src="assets/imgs/truck.png">
-            </ion-avatar>
-            <h1>TITULO</h1>
-            <p>November 5, 1955</p>
-          </ion-item>
-        </div>
+            <div *ngIf="item.task.type == 'Coleta'">
+              <ion-item>
+                <ion-avatar item-start>
+                  <img src="assets/imgs/truck.png">
+                </ion-avatar>
+                <h1>TITULO</h1>
+                <p>November 5, 1955</p>
+              </ion-item>
+            </div>
+    
+            <div *ngIf="item.task.type != 'Coleta'">
+                <ion-item>
+                  <ion-avatar item-start>
+                    <img src="assets/imgs/truck-full.png">
+                  </ion-avatar>
+                  <h1>TITULO</h1>
+                  <p>November 5, 1955</p>
+                </ion-item>
+            </div>
+    
+    
+            <ion-card-content>
+              <p>Descrição: descricao</p>
+            </ion-card-content>
+    
+            <ion-item-divider color="light">
+                <ion-icon item-start name="bookmark"></ion-icon>
+              <p>status: {{taskIsDone(item.done)}}</p>
+            </ion-item-divider>
+    
+            <ion-item-divider color="light">
+              <ion-icon item-start name="contact" ></ion-icon>
+              <p>Responsável: {{item.task.responsible_name}}</p>
+          </ion-item-divider>
+    
+            <ion-item-divider color="light">
+                <ion-icon item-start name="pin" ></ion-icon>
+                <p>Destino: {{item.task.local}}</p>
+            </ion-item-divider>
+    
+            <ion-item-divider color="light">
+                <ion-icon item-start name="ios-cube-outline"></ion-icon>
+                <p>Produto: {{item.task.object}}</p>
+            </ion-item-divider>
+            
+          </ion-card>
+    
+    </div><!-- <div id="itineraryOn" *ngIf="itineraty.status == ativo"> -->
 
-        <div *ngIf="item.task.type != 'Coleta'">
-            <ion-item>
-              <ion-avatar item-start>
-                <img src="assets/imgs/truck-full.png">
-              </ion-avatar>
-              <h1>TITULO</h1>
-              <p>November 5, 1955</p>
-            </ion-item>
-        </div>
+   
 
-
-        <ion-card-content>
-          <p>Descrição: descricao</p>
-        </ion-card-content>
-
-        <ion-item-divider color="light">
-            <ion-icon item-start name="bookmark"></ion-icon>
-          <p>status: {{taskIsDone(item.done)}}</p>
-        </ion-item-divider>
-
-
-
-        <ion-item-divider color="light">
-          <ion-icon item-start name="contact" ></ion-icon>
-          <p>Responsável: {{item.task.responsible_name}}</p>
-      </ion-item-divider>
-
-        <ion-item-divider color="light">
-            <ion-icon item-start name="pin" ></ion-icon>
-            <p>Destino: {{item.task.local}}</p>
-        </ion-item-divider>
-
-        <ion-item-divider color="light">
-            <ion-icon item-start name="ios-cube-outline"></ion-icon>
-            <p>Produto: {{item.task.object}}</p>
-        </ion-item-divider>
-        
-      </ion-card>
-    </div>
+    
+    </div><!-- <div *ngIf="itineraty != null" > -->
   
 
       <ion-fab top right edge>
@@ -79,6 +82,5 @@
           </button>
         </ion-fab>
       
-
 
 </ion-content>

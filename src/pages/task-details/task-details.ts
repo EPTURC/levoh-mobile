@@ -22,7 +22,7 @@ export class TaskDetailsPage {
   public occurrenceType:any;
   public itinerary = new Itinerary();
   public itemSelected: ItineraryItem;
-  public isToggled: boolean;
+ 
 
   constructor(public navCtrl: NavController, public navParams: NavParams
     ,private toast: ToastController
@@ -31,7 +31,6 @@ export class TaskDetailsPage {
 
     this.itinerary = navParams.get('itineraryParam');
     this.itemSelected = navParams.get('itemSelected');
-    this.setToggle(this.itinerary.status);
     this.occurrenceType = 'Em andamento';
     console.log('veichle '+this.itinerary);
     
@@ -45,43 +44,18 @@ export class TaskDetailsPage {
     console.log(this.itinerary);
 
 
-    this.itineraryService.updateItinerary(this.itinerary).subscribe();
-    this.itinerary.items.forEach(element => {
-      console.log(element);
-      
-   // this.itineraryItemService.sendItineraryItem(this.itinerary.id
- //     , element, this.itinerary.items[0].id).subscribe();
-    });
+    this.itineraryItemService.sendItineraryItem(this.itinerary.id
+      , this.itemSelected).subscribe(
+        (resp)=>{
+
+          this.navCtrl.pop();
+          this.presentToast('Status de atividade modificado!');
+        }
+      );
     
 
   }
 
-  toggleChange(){
-    if(!this.isToggled){
-      this.itinerary.status = 'ativo';
-      this.toast.create({
-        message: 'Itinerário ATIVO',
-        duration: 1000,
-        position: 'middle'
-      }).present();
-    }else{
-      this.itinerary.status = 'inativo';
-      this.toast.create({
-        message: 'Itinerário INATIVO',
-        duration: 2000,
-        position: 'middle'
-      }).present();
-    }
-  }
-
-  setToggle(input: String){
-  
-    this.itinerary.status = input;
-    if(input == 'ativo')
-      this.isToggled = true
-    else  
-      this.isToggled = false
-  }
 
 
   seletedStatus(){
@@ -108,6 +82,20 @@ export class TaskDetailsPage {
           
     }
   
+  }
+
+     /**
+   * 
+   * @param msg 
+   */
+  public presentToast(msg) {
+    let toast = this.toast.create({
+      message: msg,
+      duration: 3000,
+      position: 'middle'
+    });
+  
+    toast.present();
   }
 
 }

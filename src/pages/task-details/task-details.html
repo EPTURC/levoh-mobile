@@ -7,6 +7,7 @@
 <ion-header>
 
   <ion-navbar>
+      <img  style="float: left;" width="8%" src="assets/imgs/icon.png">
     <ion-title>Tarefas</ion-title>
   </ion-navbar>
 
@@ -21,17 +22,13 @@
   </ion-item-group>
  
 
-  <ion-item>
-    <label>O itinerário ficará inativo em caso de alguma ocorrência.</label>
-    <ion-label>Itinerário Ativo:</ion-label>
-    <ion-toggle (ngModelChange)="toggleChange(value)" [(ngModel)]="isToggled" color="energized"></ion-toggle>
-  </ion-item>
+  
 
   <ion-list>
       <ion-item>
         <ion-label>Status</ion-label>
         <ion-select (ionChange)="seletedStatus()" 
-                [(ngModel)]="occurrenceType" interface="popover">
+                [(ngModel)]="occurrenceType" >
 
           <ion-option value="Em andamento">Em andamento</ion-option>
           <ion-option value="Concluído">Concluído</ion-option>
@@ -42,6 +39,10 @@
     </ion-list>
 
 
+    <ion-item-divider color="light">
+        <ion-icon item-start name="contact" ></ion-icon>
+        <p>Status: {{itinerary.status}}</p>
+    </ion-item-divider>
 
   <ion-item-divider color="light">
     <ion-icon item-start name="contact" ></ion-icon>
@@ -64,5 +65,6 @@
     </button>
   </ion-fab>
 
+  
 
 </ion-content>

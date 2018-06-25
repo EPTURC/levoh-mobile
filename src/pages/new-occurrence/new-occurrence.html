@@ -7,6 +7,7 @@
 <ion-header>
 
   <ion-navbar>
+      <img  style="float: left;" width="8%" src="assets/imgs/icon.png">
     <ion-title>new-occurrence</ion-title>
   </ion-navbar>
 
@@ -18,10 +19,12 @@
     <ion-list>
         <ion-item>
           <ion-label>Tipo</ion-label>
-          <ion-select item-height="100%" [(ngModel)]="occurrenceType" >
+          <ion-select item-height="100%" [(ngModel)]="occurrenceType" interface="popover">
 
             <ion-option value="Veiculo danificado">Veiculo danificado</ion-option>
             <ion-option value="Via interditada">Via interditada</ion-option>
+            <ion-option value="Via interditada">Refeição</ion-option>
+            <ion-option value="Via interditada">Parada rápida</ion-option>
             
           </ion-select>
         </ion-item>

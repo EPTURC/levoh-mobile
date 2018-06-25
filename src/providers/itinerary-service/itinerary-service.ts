@@ -28,6 +28,7 @@ export class ItineraryServiceProvider extends RequestServiceProvider<Itinerary>{
    
 
     console.log(itinerary);
+    
     const headers = new HttpHeaders().set("Content-Type", "application/json");
     return this.http.put(url,itinerary,{headers});
   }

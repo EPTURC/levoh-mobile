@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, Platform } from 'ionic-angular';
 import { OccurrenceServiceProvider } from '../../providers/occurrence-service/occurrence-service';
 import { Occurrence } from '../../models/Occurrence';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Localization } from '../../models/Localization';
 import { Driver } from '../../models/Driver';
 import { PersistenceServiceProvider } from '../../providers/persistence-service/persistence-service';
+import { LocalNotifications } from '@ionic-native/local-notifications';
+import { Session } from '../../models/Session';
 
 /**
  * Generated class for the NewOccurrencePage page.
@@ -32,12 +34,15 @@ export class NewOccurrencePage {
   ,private occurrenceService: OccurrenceServiceProvider
   , public toastCtrl: ToastController
 , private geolocation: Geolocation
-,private persistenceService: PersistenceServiceProvider) {
-    this.persistenceService.getDriverSession().subscribe(
-      (resp)=>{
-        this.driverSession = resp;
-      }
-    );
+,private persistenceService: PersistenceServiceProvider
+) {
+  this.driverSession = Session.getDriver();
+   
+
+   
+    
+   
+   
   }
 
   public sendNewOccurrence(){
