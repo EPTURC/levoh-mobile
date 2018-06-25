@@ -24,7 +24,7 @@
   <ion-item>
     <label>O itinerário ficará inativo em caso de alguma ocorrência.</label>
     <ion-label>Itinerário Ativo:</ion-label>
-    <ion-toggle (ngModelChange)="toggleChange(value)" [(ngModel)]="isToggled" color="energized"></ion-toggle>
+    <ion-toggle (ngModelChange)="toggleChange()" [(ngModel)]="isToggled" color="energized"></ion-toggle>
   </ion-item>
 
   <ion-list>
@@ -45,7 +45,7 @@
 
   <ion-item-divider color="light">
     <ion-icon item-start name="contact" ></ion-icon>
-    <p>Responsável: {{itemSelected.task.responsible_name}}</p>
+    <p>Responsável: {{itemSelected.task.responsableName}}</p>
 </ion-item-divider>
 
   <ion-item-divider color="light">

@@ -6,13 +6,6 @@ import { FeedPage } from '../feed/feed';
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
-
   tasks = HomePage;
   feed = FeedPage;
-
-  
-
-  constructor() {
-
-  }
 }

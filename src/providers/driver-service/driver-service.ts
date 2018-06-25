@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Driver } from '../../models/Driver';
-import { RequestServiceProvider } from '../request-service/request-service';
+import { RestfulProvider } from '../restful-provider/restful-provider';
 
 /*
   Generated class for the DriverServiceProvider provider.
@@ -10,11 +10,10 @@ import { RequestServiceProvider } from '../request-service/request-service';
   and Angular DI.
 */
 @Injectable()
-export class DriverServiceProvider extends RequestServiceProvider<Driver>{
+export class DriverServiceProvider extends RestfulProvider<Driver>{
 
-  constructor(public http: HttpClient) {
-    super(http, 'drivers');
-  
+  constructor(public httpClient: HttpClient) {
+    super(httpClient, Driver, 'drivers');
   }
 
 }
