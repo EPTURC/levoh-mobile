@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Occurrence } from '../../models/Occurrence';
-import { RequestServiceProvider } from '../request-service/request-service';
+import { RestfulProvider } from '../restful-provider/restful-provider';
 
 /*
   Generated class for the OccurrenceServiceProvider provider.
@@ -10,15 +10,10 @@ import { RequestServiceProvider } from '../request-service/request-service';
   and Angular DI.
 */
 @Injectable()
-export class OccurrenceServiceProvider extends RequestServiceProvider<Occurrence>{
+export class OccurrenceServiceProvider extends RestfulProvider<Occurrence>{
 
-  constructor(public http: HttpClient) {
-   super(http, 'occurrences');
-  }
-
-
-  public sendNewOccurrence(newOccurrence: Occurrence){
-   return this.http.post(this.URL_SERVER, newOccurrence);
+  constructor(public httpClient: HttpClient) {
+    super(httpClient, Occurrence, 'occurrences');
   }
 
 }

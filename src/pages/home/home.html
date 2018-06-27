@@ -1,6 +1,6 @@
 <ion-content padding>
 
-  <div *ngIf="itineraty == null" >
+  <div *ngIf="itineraty == null">
     <ion-card>
       <ion-card-header>
         Nenhum itinerário cadastrado.
@@ -11,68 +11,68 @@
     </ion-card>
   </div>
 
-  <div *ngIf="itineraty != null" >
+  <div *ngIf="itineraty != null">
 
-    <ion-card (click)="selectedItem(item)" *ngFor = "let item of itineraty.items"> 
-
-
-        <div *ngIf="item.task.type == 'Coleta'">
-          <ion-item>
-            <ion-avatar item-start>
-              <img src="assets/imgs/truck.png">
-            </ion-avatar>
-            <h1>TITULO</h1>
-            <p>November 5, 1955</p>
-          </ion-item>
-        </div>
-
-        <div *ngIf="item.task.type != 'Coleta'">
-            <ion-item>
-              <ion-avatar item-start>
-                <img src="assets/imgs/truck-full.png">
-              </ion-avatar>
-              <h1>TITULO</h1>
-              <p>November 5, 1955</p>
-            </ion-item>
-        </div>
+    <ion-card (click)="navigateToItemDetailPage(item)" *ngFor="let item of itineraty.items">
 
 
-        <ion-card-content>
-          <p>Descrição: descricao</p>
-        </ion-card-content>
+      <div *ngIf="item.task.isCollect">
+        <ion-item>
+          <ion-avatar item-start>
+            <img src="assets/imgs/truck.png">
+          </ion-avatar>
+          <h1>TITULO</h1>
+          <p>November 5, 1955</p>
+        </ion-item>
+      </div>
 
-        <ion-item-divider color="light">
-            <ion-icon item-start name="bookmark"></ion-icon>
-          <p>status: {{taskIsDone(item.done)}}</p>
-        </ion-item-divider>
+      <div *ngIf="item.task.isDelivery">
+        <ion-item>
+          <ion-avatar item-start>
+            <img src="assets/imgs/truck-full.png">
+          </ion-avatar>
+          <h1>TITULO</h1>
+          <p>November 5, 1955</p>
+        </ion-item>
+      </div>
 
 
+      <ion-card-content>
+        <p>Descrição: descricao</p>
+      </ion-card-content>
 
-        <ion-item-divider color="light">
-          <ion-icon item-start name="contact" ></ion-icon>
-          <p>Responsável: {{item.task.responsible_name}}</p>
+      <ion-item-divider color="light">
+        <ion-icon item-start name="bookmark"></ion-icon>
+        <p>status: {{item.status}}</p>
       </ion-item-divider>
 
-        <ion-item-divider color="light">
-            <ion-icon item-start name="pin" ></ion-icon>
-            <p>Destino: {{item.task.local}}</p>
-        </ion-item-divider>
 
-        <ion-item-divider color="light">
-            <ion-icon item-start name="ios-cube-outline"></ion-icon>
-            <p>Produto: {{item.task.object}}</p>
-        </ion-item-divider>
-        
-      </ion-card>
-    </div>
-  
 
-      <ion-fab top right edge>
-          <button ion-fab color="danger" (click)="newOccurrence()"> 
-              <ion-icon name="close-circle"></ion-icon>
-          </button>
-        </ion-fab>
-      
+      <ion-item-divider color="light">
+        <ion-icon item-start name="contact"></ion-icon>
+        <p>Responsável: {{item.task.responsableName}}</p>
+      </ion-item-divider>
+
+      <ion-item-divider color="light">
+        <ion-icon item-start name="pin"></ion-icon>
+        <p>Destino: {{item.task.local}}</p>
+      </ion-item-divider>
+
+      <ion-item-divider color="light">
+        <ion-icon item-start name="ios-cube-outline"></ion-icon>
+        <p>Produto: {{item.task.object}}</p>
+      </ion-item-divider>
+
+    </ion-card>
+  </div>
+
+
+  <ion-fab bottom right>
+    <button ion-fab color="danger" (click)="navigateToNewOccurrencePage()">
+      <ion-icon name="close-circle"></ion-icon>
+    </button>
+  </ion-fab>
+
 
 
 </ion-content>

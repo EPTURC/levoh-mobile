@@ -60,9 +60,16 @@ if not (stat.S_IXUSR & os.stat(gradle_bin)[stat.ST_MODE]):
         print(f"On *nix systems run `sudo chmod +x {gradle_bin}`")
         exit(1)
 
-environ['PATH'] = pathsep.join([join(gradle_home, 'bin'), join(java_home, 'bin'), environ['PATH']])
-environ['GRADLE_HOME'] = gradle_home
-environ['JAVA_HOME'] = java_home
-environ['ANDROID_HOME'] = android_sdk
 
-call(['ionic', 'cordova', 'run', 'android'])
+a = {}
+
+a['PATH'] = pathsep.join([join(gradle_home, 'bin'), join(java_home, 'bin'), '$PATH'])
+a['GRADLE_HOME'] = gradle_home
+a['JAVA_HOME'] = java_home
+a['ANDROID_HOME'] = android_sdk
+
+for k, v in a.items():
+    print(k + "=" + v)
+# print(a)
+
+# call(['ionic', 'cordova', 'run', 'android'])
