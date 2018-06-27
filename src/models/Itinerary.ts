@@ -60,7 +60,7 @@ export class Itinerary {
             driver: this.driver.encodeJson(),
             status: this.status == ItineraryStatus.Inactive ? 'inativo' : 'ativo',
             vehicle: this.vehicle.encodeJson(),
-            items: this.items.map(ItineraryItem.prototype.encodeJson)
+            items: this.items.map(i => i.encodeJson())
         }
     }
 

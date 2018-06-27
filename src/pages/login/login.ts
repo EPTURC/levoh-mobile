@@ -25,22 +25,17 @@ export class LoginPage {
     private store: PersistenceServiceProvider,
     private toast: ToastController) { }
 
-  private driver = new Driver();
-
   authenticate() {
     // FIXME: Ugly 
-    this.driverProvider.getById(21, this.driver)
+    this.driverProvider.getById(21)
       .subscribe(
-        () => {
-          this.persistDriver().subscribe(() => this.navigateToHome());
+        (driver) => {
+          this.store.setDriver(driver);
+          this.navigateToHome();
         },
         () => {
           this.showFailToast();
         })
-  }
-
-  persistDriver(): Observable<Driver> {
-    return this.store.setDriver(this.driver)
   }
 
   navigateToHome() {

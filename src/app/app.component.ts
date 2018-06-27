@@ -7,6 +7,7 @@ import { ToastController } from 'ionic-angular';
 import { TabsPage } from '../pages/tabs/tabs';
 import { VehicleServiceProvider } from '../providers/vehicle-service/vehicle-service';
 import { Vehicle } from '../models/Vehicle';
+import 'rxjs/add/operator/filter';
 
 
 @Component({
@@ -34,15 +35,14 @@ export class MyApp {
   }
 
   sendPosition() {
-    this.geolocation.getCurrentPosition()
-    .then((evt) => {
-      this.toast.create({
-        message: `(${evt.coords.latitude}, ${evt.coords.longitude})`,
-        duration: 3000,
-        position: 'middle'}).present();
-
-      // TODO: send 
-      setTimeout(()=> {this.sendPosition()}, 20000);
-    })
+    this.geolocation.watchPosition()
+      .filter(pos => pos.coords != undefined)
+      .subscribe(pos => {
+        // this.toast.create({
+        //   message: `(${evt.coords.latitude}, ${evt.coords.longitude})`,
+        //   duration: 3000,
+        //   position: 'middle'}).present();
+        console.log(`(${pos.coords.latitude}, ${pos.coords.longitude})`)
+      });
   }
 }

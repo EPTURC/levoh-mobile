@@ -32,18 +32,34 @@ export class HomePage {
     private persistenceService: PersistenceServiceProvider,
     private navControl: NavController,
     private app: App) {
-      this.retrieveItinerary()
+      this.subscribeCurrentDriver();
+      this.subscribeItinerary();
   }
 
-  retrieveItinerary() {
-    let driver = new Driver();
-    this.persistenceService.getDriver(driver)
-    .subscribe(() => {
-      if (!driver.id) {
+  private subscribeItinerary() {
+    this.persistenceService.subscribeItinerary(it => {
+      if (it) {
+        console.log("Setting itinerary");
+          this.itineraty = it;
+      }
+    })
+  }
+
+  private subscribeCurrentDriver() {
+    this.persistenceService.subscribeDriver(driver => {
+      if (!driver) {
         this.app.getRootNav().push(LoginPage);
         return;
       }
-      this.itineraryService.getByDriver(driver, this.itineraty).subscribe(it => console.log);
+      this.refreshItineraryOfDriver(driver);
+    })
+  }
+
+  private refreshItineraryOfDriver(driver) {
+    let subscription = this.itineraryService.getByDriver(driver).subscribe(it => {
+      console.log("refreshing itinerary");
+      this.persistenceService.setItinerary(it);
+      subscription.unsubscribe();
     });
   }
 

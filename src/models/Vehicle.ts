@@ -26,7 +26,7 @@ export class Vehicle{
         return {
             id: this.id,
             company_id: this.company,
-            location: this.locationHistory.map(c => c.encodeJson)
+            location: this.locationHistory.map(c => c.encodeJson())
         }
     }
 }
