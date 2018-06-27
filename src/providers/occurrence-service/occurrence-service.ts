@@ -13,7 +13,7 @@ import { RestfulProvider } from '../restful-provider/restful-provider';
 export class OccurrenceServiceProvider extends RestfulProvider<Occurrence>{
 
   constructor(public httpClient: HttpClient) {
-   super(httpClient, Occurrence, 'occurrences');
+    super(httpClient, Occurrence, 'occurrences');
   }
 
 }

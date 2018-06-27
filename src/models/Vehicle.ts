@@ -1,7 +1,7 @@
 import { GeoCoordinate } from './GeoCoordinate';
 
 export class Vehicle{
-    public id: Number;
+    public id: number;
     public company: String;
     // TODO: Use some smarter data type, a Ordered Set for example 
     public locationHistory: GeoCoordinate[] = [];

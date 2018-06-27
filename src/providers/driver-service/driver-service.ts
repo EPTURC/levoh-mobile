@@ -10,10 +10,10 @@ import { RestfulProvider } from '../restful-provider/restful-provider';
   and Angular DI.
 */
 @Injectable()
-export class DriverServiceProvider extends RestfulProvider<Driver>{
+export class DriverServiceProvider extends RestfulProvider<Driver> {
 
   constructor(public httpClient: HttpClient) {
     super(httpClient, Driver, 'drivers');
   }
-
+  
 }
