@@ -1,14 +1,12 @@
 import { Driver } from "./Driver";
-import { Vehicle } from "./vehicle";
-import { User } from "./User";
+import { Vehicle } from "./Vehicle";
 import { Itinerary } from "./Itinerary";
 
 export class Session{
 
-    private static user: User;
-    private static driver: Driver;
-    private static vehicle: Vehicle;
-    private static itinerary: Itinerary;
+    private static driver = new Driver();
+    private static vehicle = new Vehicle();
+    private static itinerary = new Itinerary();
     
 
 
@@ -17,13 +15,13 @@ export class Session{
     public static get userSession()
     {
         // Do you need arguments? Make it a regular method instead.
-        return this.user || (this.user = new User());
+        return this.driver
     }
 
     public static getVehicle()
     {
         // Do you need arguments? Make it a regular method instead.
-        return this.vehicle || (this.vehicle = new Vehicle());
+        return this.vehicle
     }
 
     public static setVechicle(v: Vehicle)
@@ -34,7 +32,7 @@ export class Session{
     public static getDriver()
     {
         // Do you need arguments? Make it a regular method instead.
-        return this.driver || (this.driver = new Driver());
+        return this.driver;
     }
 
     public static setDriver(d: Driver)

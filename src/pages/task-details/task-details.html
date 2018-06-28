@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-      <img  style="float: left;" width="8%" src="assets/imgs/icon.png">
+    <img  style="float: left;" width="8%" src="assets/imgs/icon.png">
     <ion-title>Tarefas</ion-title>
   </ion-navbar>
 
@@ -20,43 +20,39 @@
     <h2 >titulo</h2>
     <h3>descricao</h3>
   </ion-item-group>
- 
-
-  
 
   <ion-list>
-      <ion-item>
-        <ion-label>Status</ion-label>
-        <ion-select (ionChange)="seletedStatus()" 
-                [(ngModel)]="occurrenceType" >
+    <ion-item>
+      <ion-label>Status</ion-label>
+      <ion-select [(ngModel)]="itemSelected.status" >
 
-          <ion-option value="Em andamento">Em andamento</ion-option>
-          <ion-option value="Concluído">Concluído</ion-option>
-          <ion-option value="Pausado">Pausado</ion-option>
-          
-        </ion-select>
-      </ion-item>
-    </ion-list>
+        <ion-option value="Em andamento">Em andamento</ion-option>
+        <ion-option value="Concluído">Concluído</ion-option>
+        <ion-option value="Pausado">Pausado</ion-option>
+        
+      </ion-select>
+    </ion-item>
+  </ion-list>
 
-
-    <ion-item-divider color="light">
-        <ion-icon item-start name="contact" ></ion-icon>
-        <p>Status: {{itinerary.status}}</p>
-    </ion-item-divider>
 
   <ion-item-divider color="light">
     <ion-icon item-start name="contact" ></ion-icon>
-    <p>Responsável: {{itemSelected.task.responsible_name}}</p>
-</ion-item-divider>
-
-  <ion-item-divider color="light">
-      <ion-icon item-start name="pin" ></ion-icon>
-      <p>Destino: {{itemSelected.task.local}}</p>
+    <p>Status: {{itemSelected.itinerary.status}}</p>
   </ion-item-divider>
 
   <ion-item-divider color="light">
-      <ion-icon item-start name="ios-cube-outline"></ion-icon>
-      <p>Produto: {{itemSelected.task.object}}</p>
+    <ion-icon item-start name="contact" ></ion-icon>
+    <p>Responsável: {{itemSelected.task.responsableName}}</p>
+  </ion-item-divider>
+
+  <ion-item-divider color="light">
+    <ion-icon item-start name="pin" ></ion-icon>
+    <p>Destino: {{itemSelected.task.local.latitude}}, {{itemSelected.task.local.longitude}}</p>
+  </ion-item-divider>
+
+  <ion-item-divider color="light">
+    <ion-icon item-start name="ios-cube-outline"></ion-icon>
+    <p>Produto: {{itemSelected.task.object}}</p>
   </ion-item-divider>
 
   <ion-fab bottom right>
@@ -65,6 +61,5 @@
     </button>
   </ion-fab>
 
-  
 
 </ion-content>

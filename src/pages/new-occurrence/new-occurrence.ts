@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { OccurrenceServiceProvider } from '../../providers/occurrence-service/occurrence-service';
 import { Occurrence } from '../../models/Occurrence';
-import { Geolocation } from '@ionic-native/geolocation';
-import { Localization } from '../../models/Localization';
+import { Geolocation, Geoposition } from '@ionic-native/geolocation';
+import { GeoCoordinate } from '../../models/GeoCoordinate';
 import { Driver } from '../../models/Driver';
 import { PersistenceServiceProvider } from '../../providers/persistence-service/persistence-service';
-import { LocalNotifications } from '@ionic-native/local-notifications';
-import { Session } from '../../models/Session';
+import { forkJoin } from 'rxjs/observable/forkJoin';
+import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Observable';
 
 /**
  * Generated class for the NewOccurrencePage page.
@@ -23,91 +24,46 @@ import { Session } from '../../models/Session';
 })
 export class NewOccurrencePage {
 
-  public description: String;
-  public occurrenceType:String;
-  private occurrence = new Occurrence()
-  private location = new Localization();
-  private driverSession:Driver;
+  public occurrence = new Occurrence();
 
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private occurrenceService: OccurrenceServiceProvider,
+              public toastCtrl: ToastController,
+              private geolocation: Geolocation,
+              private persistenceService: PersistenceServiceProvider) { }
 
-  constructor(public navCtrl: NavController, public navParams: NavParams
-  ,private occurrenceService: OccurrenceServiceProvider
-  , public toastCtrl: ToastController
-, private geolocation: Geolocation
-,private persistenceService: PersistenceServiceProvider
-) {
-  this.driverSession = Session.getDriver();
-   
-
-   
-    
-   
-   
+  public fillMissingFieldsAndSendOccurrence() {
+    // Wait for location and driver to be set then send the occurrence
+    forkJoin(
+      Observable.fromPromise(this.geolocation.getCurrentPosition()).map(this.fillLocation),
+      this.persistenceService.getDriver(this.occurrence.driver))
+    .map(this.sendOccurence)
+    .subscribe(this.showSuccessToasAndNavigateBack, this.showFailToast);
   }
 
-  public sendNewOccurrence(){
-    console.log(this.description);
-    console.log(this.occurrenceType);
-    
-    
+  private fillLocation(geoposition: Geoposition) {
+    this.occurrence.location.readGeoPosition(geoposition);
+  }
 
-    this.geolocation.getCurrentPosition().then(
-      (resp) => {
-        
-            // location received
-            this.location.latitude = resp.coords.latitude+'';
-            this.location.longitude = resp.coords.longitude+'';
-            this.occurrence.driver_id = this.driverSession.id;
-            this.occurrence.location = this.location.latitude +', '+this.location.longitude;
-            this.occurrence.description = this.description;
-            this.occurrence.type = this.occurrenceType;
-            console.log(this.occurrence);
-            
-           this.occurrenceService.sendNewOccurrence(this.occurrence).subscribe(
-              (resp)=>{
+  private sendOccurence(): Observable<any> {
+    return this.occurrenceService.insert(this.occurrence);
+  }
 
-
-                this.presentToast('Ocorrência enviada para a central');
-                this.navCtrl.pop();
-                
-              },
-              (erro)=>{
-                this.presentToast('Problema no envio da ocorrência');
-              }
-            );
-            
-     
-     }//(resp) => {
-    ).catch((error) => {
-      
-     console.log('erro na geolocalização');
-     
-     });
-
-   
-
-
-    this.occurrenceService.sendNewOccurrence(this.occurrence);
-     }
-
- 
-
-
-       /**
-   * 
-   * @param msg 
-   */
-  public presentToast(msg) {
-    let toast = this.toastCtrl.create({
-      message: msg,
+  private showSuccessToasAndNavigateBack() {
+    this.toastCtrl.create({
+      message: 'Ocorrência enviada para a central',
       duration: 3000,
       position: 'middle'
-    });
-  
-    toast.present();
+    }).present();
+    this.navCtrl.pop();
   }
 
- 
-
-
+  private showFailToast() {
+    this.toastCtrl.create({
+      message: 'Problema no envio da ocorrência',
+      duration: 3000,
+      position: 'middle'
+    }).present();
+  }
 }

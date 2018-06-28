@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Task } from '../../models/task';
-import { RequestServiceProvider } from '../request-service/request-service';
+import { Task } from '../../models/Task';
+import { RestfulProvider } from '../restful-provider/restful-provider';
 
 
 /*
@@ -11,10 +11,10 @@ import { RequestServiceProvider } from '../request-service/request-service';
   and Angular DI.
 */
 @Injectable()
-export class TaskServiceProvider extends RequestServiceProvider<Task>{
+export class TaskServiceProvider extends RestfulProvider<Task>{
 
-  constructor(public http: HttpClient) {
-    super(http, 'tasks');
+  constructor(public httpClient: HttpClient) {
+    super(httpClient, Task, 'tasks');
   }
 
 }

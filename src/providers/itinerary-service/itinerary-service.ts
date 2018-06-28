@@ -1,7 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Itinerary } from '../../models/Itinerary';
-import { RequestServiceProvider } from '../request-service/request-service';
+import { Itinerary, ItineraryItem } from '../../models/Itinerary';
+import { Driver } from '../../models/Driver';
+import { Observable } from 'rxjs/Observable';
+import { RestfulProvider, intoEntity } from '../restful-provider/restful-provider';
+import { Subject } from 'rxjs/Subject';
 
 
 /*
@@ -11,40 +14,21 @@ import { RequestServiceProvider } from '../request-service/request-service';
   and Angular DI.
 */
 @Injectable()
-export class ItineraryServiceProvider extends RequestServiceProvider<Itinerary>{
+export class ItineraryServiceProvider extends RestfulProvider<Itinerary>{
 
   private urlUpdate;
 
-  constructor(public http: HttpClient) {
-   super(http, 'itineraries/driver/');
-   this.urlUpdate = this.ROOT_URL+'itineraries/'
-
-   
+  constructor(public httpClient: HttpClient) {
+    super(httpClient, Itinerary, 'itineraries');
   }
 
-  public updateItinerary(itinerary: Itinerary){
-    let url = this.urlUpdate+itinerary.id
-    
-   
-
-    console.log(itinerary);
-    
-    const headers = new HttpHeaders().set("Content-Type", "application/json");
-    return this.http.put(url,itinerary,{headers});
+  public updateItineraryItem(item: ItineraryItem): Observable<ItineraryItem> {
+    return this.httpClient.put(`${this.baseUrl}${item.itinerary.id}/itinerary_items/${item.id}` , item.encodeJson())
+      .map(intoEntity(item));
   }
 
-
-  public findItineraryById(id){
-    
-    return this.http.get<Itinerary>(this.urlUpdate+id);
+  public getByDriver(driver: Driver): Observable<Itinerary> {
+    return this.httpClient.get(this.baseUrl + 'driver/' + driver.id)
+      .map(intoEntity(new Itinerary()));
   }
-
- 
-
-
-
-
-
-
-
 }

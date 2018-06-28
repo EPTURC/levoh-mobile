@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Vehicle } from '../../models/vehicle';
-import { RequestServiceProvider } from '../request-service/request-service';
+import { Vehicle } from '../../models/Vehicle';
+import { RestfulProvider, intoEntity } from '../restful-provider/restful-provider';
+import { Observable } from 'rxjs/Observable';
+import { GeoCoordinate } from '../../models/GeoCoordinate';
 
 /*
   Generated class for the VehicleServiceProvider provider.
@@ -10,12 +12,12 @@ import { RequestServiceProvider } from '../request-service/request-service';
   and Angular DI.
 */
 @Injectable()
-export class VehicleServiceProvider extends RequestServiceProvider<Vehicle>{
-   
-  constructor(public http: HttpClient ) {
-    super(http,'vehicles');
+export class VehicleServiceProvider extends RestfulProvider<Vehicle> {
+  constructor(public httpClient: HttpClient ) {
+    super(httpClient, Vehicle, 'vehicles');
   }
 
-  
-
+  insertLocationByVehicle(vehicle: Vehicle, loc: GeoCoordinate): Observable<GeoCoordinate> {
+    return this.httpClient.post(this.baseUrl + vehicle.id + '/locations', loc.encodeJson()).map(intoEntity(loc));
+  }
 }

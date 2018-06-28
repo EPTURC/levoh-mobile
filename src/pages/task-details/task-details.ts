@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 
-import { Itinerary } from '../../models/Itinerary';
-import { ItineraryItem } from '../../models/ItineraryItem';
+import { Itinerary, ItineraryItem, ItineraryStatus } from '../../models/Itinerary';
 import { ItineraryServiceProvider } from '../../providers/itinerary-service/itinerary-service';
-import { ItineraryItemServiceProvider } from '../../providers/itinerary-item-service/itinerary-item-service';
+import { PersistenceServiceProvider } from '../../providers/persistence-service/persistence-service';
 
 /**
  * Generated class for the TaskDetailsPage page.
@@ -19,83 +18,37 @@ import { ItineraryItemServiceProvider } from '../../providers/itinerary-item-ser
   templateUrl: 'task-details.html',
 })
 export class TaskDetailsPage {
-  public occurrenceType:any;
-  public itinerary = new Itinerary();
-  public itemSelected: ItineraryItem;
- 
+  public itemSelected = new ItineraryItem(null);
 
-  constructor(public navCtrl: NavController, public navParams: NavParams
-    ,private toast: ToastController
-  ,private itineraryService: ItineraryServiceProvider
-  ,private itineraryItemService: ItineraryItemServiceProvider ) {
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    private toast: ToastController,
+    private itineraryService: ItineraryServiceProvider,
+    private store: PersistenceServiceProvider) {
 
-    this.itinerary = navParams.get('itineraryParam');
-    this.itemSelected = navParams.get('itemSelected');
-    this.occurrenceType = 'Em andamento';
-    console.log('veichle '+this.itinerary);
-    
-    
+    this.itemSelected = navParams.get('itemSelected') || new ItineraryItem(new Itinerary());
   }
 
-  sendChange(){
-    
-    let indexItem = this.findItemIndex(this.itemSelected);
-    this.itinerary.items[indexItem] = this.itemSelected;
-    console.log(this.itinerary);
-
-
-    this.itineraryItemService.sendItineraryItem(this.itinerary.id
-      , this.itemSelected).subscribe(
-        (resp)=>{
-
-          this.navCtrl.pop();
-          this.presentToast('Status de atividade modificado!');
-        }
-      );
-    
-
-  }
-
-
-
-  seletedStatus(){
-    if(this.occurrenceType == 'Em andamento')
-      this.itemSelected.done = false;
-
-    if(this.occurrenceType == 'Concluído')
-      this.itemSelected.done = true;
-
-   if(this.occurrenceType == 'Pausado')
-      this.itemSelected.done = false;
-
-    
-      
-    
-  }
-
-
-  findItemIndex(item: ItineraryItem){
-  
-    for(var i =0; i<this.itinerary.items.length ;i++){
-        if(this.itinerary.items[i] == item)
-          return i;
-          
-    }
-  
-  }
-
-     /**
-   * 
-   * @param msg 
-   */
-  public presentToast(msg) {
-    let toast = this.toast.create({
-      message: msg,
-      duration: 3000,
-      position: 'middle'
-    });
-  
-    toast.present();
+  sendChange() {
+    console.log(this.itemSelected.done);
+    this.itineraryService.updateItineraryItem(this.itemSelected)
+      .subscribe(item => {
+        item.itinerary.refreshItem(item);
+        this.store.setItinerary(item.itinerary);
+        this.toast.create({
+          message: "Status de atividade modificado!",
+          duration: 3000,
+          position: 'middle'
+        }).present();
+        this.navCtrl.pop();
+      }, err => {
+        console.trace(err);
+        this.toast.create({
+          message: "Modificação não salva! :(",
+          duration: 3000,
+          position: 'middle'
+        }).present();
+      })
   }
 
 }
