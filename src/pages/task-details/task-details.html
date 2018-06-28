@@ -16,27 +16,22 @@
 
 <ion-content padding>
 
-  <ion-item-group text-center>
-    <h2 >titulo</h2>
-    <h3>descricao</h3>
-  </ion-item-group>
- 
+  <div *ngIf="itemSelected.task.type == 'Coleta'">
+    <ion-item>
+        <img item-start style="width: 25%;" src="assets/imgs/truck.png">
+      <h1> {{itemSelected.task.type}}</h1>
 
-  
+    </ion-item>
+  </div>
 
-  <ion-list>
+  <div *ngIf="itemSelected.task.type != 'Coleta'">
       <ion-item>
-        <ion-label>Status</ion-label>
-        <ion-select (ionChange)="seletedStatus()" 
-                [(ngModel)]="occurrenceType" >
-
-          <ion-option value="Em andamento">Em andamento</ion-option>
-          <ion-option value="Concluído">Concluído</ion-option>
-          <ion-option value="Pausado">Pausado</ion-option>
-          
-        </ion-select>
+          <img item-start style="width: 25%;" src="assets/imgs/truck-full.png">
+        <h1>{{itemSelected.task.type}}</h1>
+        
       </ion-item>
-    </ion-list>
+  </div>
+ 
 
 
     <ion-item-divider color="light">
@@ -59,8 +54,12 @@
       <p>Produto: {{itemSelected.task.object}}</p>
   </ion-item-divider>
 
-  <ion-fab bottom right>
-    <button (click)="sendChange()" ion-fab> Enviar
+  <ion-fab bottom right >
+    <button (click)="sendChange()" ion-fab style="margin: 8px;
+    width: 70px;
+    height: 70px;
+    line-height: 50px; "> 
+        <ion-icon name="ios-send"></ion-icon>
       
     </button>
   </ion-fab>

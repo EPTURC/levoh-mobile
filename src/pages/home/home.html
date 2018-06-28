@@ -23,28 +23,21 @@
 
             <div *ngIf="item.task.type == 'Coleta'">
               <ion-item>
-                <ion-avatar item-start>
-                  <img src="assets/imgs/truck.png">
-                </ion-avatar>
-                <h1>TITULO</h1>
-                <p>November 5, 1955</p>
+                  <img item-start style="width: 25%;" src="assets/imgs/truck.png">
+                <h1> {{item.task.type}}</h1>
+
               </ion-item>
             </div>
     
             <div *ngIf="item.task.type != 'Coleta'">
                 <ion-item>
-                  <ion-avatar item-start>
-                    <img src="assets/imgs/truck-full.png">
-                  </ion-avatar>
-                  <h1>TITULO</h1>
-                  <p>November 5, 1955</p>
+                    <img item-start style="width: 25%;" src="assets/imgs/truck-full.png">
+                  <h1>{{item.task.type}}</h1>
+                  
                 </ion-item>
             </div>
     
-    
-            <ion-card-content>
-              <p>Descrição: descricao</p>
-            </ion-card-content>
+  
     
             <ion-item-divider color="light">
                 <ion-icon item-start name="bookmark"></ion-icon>

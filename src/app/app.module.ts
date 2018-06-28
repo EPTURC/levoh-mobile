@@ -28,12 +28,14 @@ import { IonicStorageModule } from '@ionic/storage';
 import { PersistenceServiceProvider } from '../providers/persistence-service/persistence-service';
 import { OccurrenceServiceProvider } from '../providers/occurrence-service/occurrence-service';
 import { LocalNotifications } from '@ionic-native/local-notifications';
+import { ConfirmationTaskPage } from '../pages/confirmation-task/confirmation-task';
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     TaskDetailsPage,
     NewOccurrencePage,
+    ConfirmationTaskPage,
     FeedPage,
     LoginPage,
     TabsPage
@@ -54,6 +56,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
     HomePage,
     TaskDetailsPage,
     NewOccurrencePage,
+    ConfirmationTaskPage,
     FeedPage,
     LoginPage,
     TabsPage

@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, ModalController } from 'ionic-angular';
 
 import { Itinerary } from '../../models/Itinerary';
 import { ItineraryItem } from '../../models/ItineraryItem';
 import { ItineraryServiceProvider } from '../../providers/itinerary-service/itinerary-service';
 import { ItineraryItemServiceProvider } from '../../providers/itinerary-item-service/itinerary-item-service';
+import { ConfirmationTaskPage } from '../confirmation-task/confirmation-task';
 
 /**
  * Generated class for the TaskDetailsPage page.
@@ -27,7 +28,8 @@ export class TaskDetailsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams
     ,private toast: ToastController
   ,private itineraryService: ItineraryServiceProvider
-  ,private itineraryItemService: ItineraryItemServiceProvider ) {
+  ,private itineraryItemService: ItineraryItemServiceProvider
+  ,public modalCtrl: ModalController ) {
 
     this.itinerary = navParams.get('itineraryParam');
     this.itemSelected = navParams.get('itemSelected');
@@ -39,39 +41,17 @@ export class TaskDetailsPage {
 
   sendChange(){
     
-    let indexItem = this.findItemIndex(this.itemSelected);
-    this.itinerary.items[indexItem] = this.itemSelected;
-    console.log(this.itinerary);
 
-
-    this.itineraryItemService.sendItineraryItem(this.itinerary.id
-      , this.itemSelected).subscribe(
-        (resp)=>{
-
-          this.navCtrl.pop();
-          this.presentToast('Status de atividade modificado!');
-        }
-      );
-    
-
-  }
-
-
-
-  seletedStatus(){
-    if(this.occurrenceType == 'Em andamento')
-      this.itemSelected.done = false;
-
-    if(this.occurrenceType == 'Concluído')
-      this.itemSelected.done = true;
-
-   if(this.occurrenceType == 'Pausado')
-      this.itemSelected.done = false;
-
-    
+      this.navCtrl.push(ConfirmationTaskPage, { 
+        item: this.itemSelected,
+        itinerary: this.itinerary 
+      });
       
-    
+      
+
   }
+
+ 
 
 
   findItemIndex(item: ItineraryItem){

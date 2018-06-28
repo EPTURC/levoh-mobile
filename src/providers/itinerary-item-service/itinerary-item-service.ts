@@ -31,4 +31,5 @@ export class ItineraryItemServiceProvider extends RequestServiceProvider<Itinera
    return this.http.patch(url, body);
   }
 
+
 }
