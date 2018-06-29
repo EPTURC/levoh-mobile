@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, ModalController } from 'ionic-angular';
 
 import { Itinerary, ItineraryItem, ItineraryStatus } from '../../models/Itinerary';
-import { ItineraryServiceProvider } from '../../providers/itinerary-service/itinerary-service';
-import { PersistenceServiceProvider } from '../../providers/persistence-service/persistence-service';
+import { ConfirmationTaskPage } from '../confirmation-task/confirmation-task';
 
 /**
  * Generated class for the TaskDetailsPage page.
@@ -22,33 +21,16 @@ export class TaskDetailsPage {
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private toast: ToastController,
-    private itineraryService: ItineraryServiceProvider,
-    private store: PersistenceServiceProvider) {
+    private toast: ToastController) {
 
     this.itemSelected = navParams.get('itemSelected') || new ItineraryItem(new Itinerary());
   }
 
-  sendChange() {
-    console.log(this.itemSelected.done);
-    this.itineraryService.updateItineraryItem(this.itemSelected)
-      .subscribe(item => {
-        item.itinerary.refreshItem(item);
-        this.store.setItinerary(item.itinerary);
-        this.toast.create({
-          message: "Status de atividade modificado!",
-          duration: 3000,
-          position: 'middle'
-        }).present();
-        this.navCtrl.pop();
-      }, err => {
-        console.trace(err);
-        this.toast.create({
-          message: "Modificação não salva! :(",
-          duration: 3000,
-          position: 'middle'
-        }).present();
-      })
+  sendChange(){
+      this.navCtrl.push(ConfirmationTaskPage, { 
+        item: this.itemSelected,
+        itinerary: this.itemSelected.itinerary 
+      });
   }
 
 }

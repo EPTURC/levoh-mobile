@@ -24,13 +24,14 @@ import { PersistenceServiceProvider } from '../providers/persistence-service/per
 import { OccurrenceServiceProvider } from '../providers/occurrence-service/occurrence-service';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { SuperTabsModule } from 'ionic2-super-tabs';
-
+import { ConfirmationTaskPage } from '../pages/confirmation-task/confirmation-task';
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     TaskDetailsPage,
     NewOccurrencePage,
+    ConfirmationTaskPage,
     FeedPage,
     LoginPage,
     TabsPage
@@ -52,6 +53,7 @@ import { SuperTabsModule } from 'ionic2-super-tabs';
     HomePage,
     TaskDetailsPage,
     NewOccurrencePage,
+    ConfirmationTaskPage,
     FeedPage,
     LoginPage,
     TabsPage
