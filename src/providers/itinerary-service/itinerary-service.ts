@@ -23,7 +23,7 @@ export class ItineraryServiceProvider extends RestfulProvider<Itinerary>{
   }
 
   public updateItineraryItem(item: ItineraryItem): Observable<ItineraryItem> {
-    return this.httpClient.put(this.baseUrl + item.itinerary.id + 'itinerary_items/' + item.id, item.encodeJson())
+    return this.httpClient.put(`${this.baseUrl}${item.itinerary.id}/itinerary_items/${item.id}` , item.encodeJson())
       .map(intoEntity(item));
   }
 

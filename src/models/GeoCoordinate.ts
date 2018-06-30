@@ -18,8 +18,10 @@ export class GeoCoordinate {
 
     encodeJson(): any {
         return {
-            latitude: this.latitude,
-            longitude: this.longitude,
+            // Encode latitude and longitude as string due to a 
+            // "400 bad request" response when this values are numbers
+            latitude: '' + this.latitude, 
+            longitude: '' + this.longitude,
             created_at: this.createdAt.toISOString()
         };
     }

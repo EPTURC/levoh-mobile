@@ -1,70 +1,61 @@
 <ion-content padding>
 
-  <div *ngIf="itineraty == null">
-    <ion-card>
-      <ion-card-header>
-        Nenhum itinerário cadastrado.
-      </ion-card-header>
-      <ion-card-content>
-        Aguarde ou entre em contato com a central.
-      </ion-card-content>
-    </ion-card>
+  <div *ngIf="itineratyItemList?.length == 0" text-center>
+    <br/>
+    <img src="assets/imgs/warning.png">
+    <br/>
+    <h3>Você não tem itinerário ativo.</h3>
   </div>
 
-  <div *ngIf="itineraty != null">
+  <ion-card (click)="navigateToItemDetailPage(item)" *ngFor="let item of itineratyItemList">
+    <div *ngIf="item.task.isCollect">
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="assets/imgs/truck.png">
+        </ion-avatar>
+        <h1>TITULO</h1>
+        <p>November 5, 1955</p>
+      </ion-item>
+    </div>
 
-    <ion-card (click)="navigateToItemDetailPage(item)" *ngFor="let item of itineraty.items">
-
-
-      <div *ngIf="item.task.isCollect">
-        <ion-item>
-          <ion-avatar item-start>
-            <img src="assets/imgs/truck.png">
-          </ion-avatar>
-          <h1>TITULO</h1>
-          <p>November 5, 1955</p>
-        </ion-item>
-      </div>
-
-      <div *ngIf="item.task.isDelivery">
-        <ion-item>
-          <ion-avatar item-start>
-            <img src="assets/imgs/truck-full.png">
-          </ion-avatar>
-          <h1>TITULO</h1>
-          <p>November 5, 1955</p>
-        </ion-item>
-      </div>
+    <div *ngIf="item.task.isDelivery">
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="assets/imgs/truck-full.png">
+        </ion-avatar>
+        <h1>TITULO</h1>
+        <p>November 5, 1955</p>
+      </ion-item>
+    </div>
 
 
-      <ion-card-content>
-        <p>Descrição: descricao</p>
-      </ion-card-content>
+    <ion-card-content>
+      <p>Descrição: descricao</p>
+    </ion-card-content>
 
-      <ion-item-divider color="light">
-        <ion-icon item-start name="bookmark"></ion-icon>
-        <p>status: {{item.status}}</p>
-      </ion-item-divider>
+    <ion-item-divider color="light">
+      <ion-icon item-start name="bookmark"></ion-icon>
+      <p>status: {{item.status}}</p>
+    </ion-item-divider>
 
 
 
-      <ion-item-divider color="light">
-        <ion-icon item-start name="contact"></ion-icon>
-        <p>Responsável: {{item.task.responsableName}}</p>
-      </ion-item-divider>
+    <ion-item-divider color="light">
+      <ion-icon item-start name="contact"></ion-icon>
+      <p>Responsável: {{item.task.responsableName}}</p>
+    </ion-item-divider>
 
-      <ion-item-divider color="light">
-        <ion-icon item-start name="pin"></ion-icon>
-        <p>Destino: {{item.task.local}}</p>
-      </ion-item-divider>
+    <ion-item-divider color="light">
+      <ion-icon item-start name="pin"></ion-icon>
+      <p>Destino: {{item.task.local.latitude}}, {{item.task.local.longitude}}</p>
+    </ion-item-divider>
 
-      <ion-item-divider color="light">
-        <ion-icon item-start name="ios-cube-outline"></ion-icon>
-        <p>Produto: {{item.task.object}}</p>
-      </ion-item-divider>
+    <ion-item-divider color="light">
+      <ion-icon item-start name="ios-cube-outline"></ion-icon>
+      <p>Produto: {{item.task.object}}</p>
+    </ion-item-divider>
 
-    </ion-card>
-  </div>
+  </ion-card>
 
 
   <ion-fab bottom right>
@@ -72,7 +63,5 @@
       <ion-icon name="close-circle"></ion-icon>
     </button>
   </ion-fab>
-
-
 
 </ion-content>

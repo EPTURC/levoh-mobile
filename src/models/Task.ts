@@ -52,4 +52,14 @@ export class Task{
             local: `${this.local.latitude}, ${this.local.longitude}`
         }
     }
+
+    assign(other: Task) {
+        this.id = other.id;
+        this.object = other.object;
+        this.responsableName = other.responsableName;
+        this.timeDuration = other.timeDuration;
+        this.type = other.type;
+        this.local = other.local;
+        this.relatedTask = other.relatedTask;
+    }
 }

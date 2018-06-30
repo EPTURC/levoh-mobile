@@ -19,19 +19,19 @@ import { VehicleServiceProvider } from '../providers/vehicle-service/vehicle-ser
 import { DriverServiceProvider } from '../providers/driver-service/driver-service';
 import { TaskServiceProvider } from '../providers/task-service/task-service';
 import { ItineraryServiceProvider } from '../providers/itinerary-service/itinerary-service';
-import { DeviceLocationServiceProvider } from '../providers/device-location-service/device-location-service';
 import { IonicStorageModule } from '@ionic/storage';
 import { PersistenceServiceProvider } from '../providers/persistence-service/persistence-service';
 import { OccurrenceServiceProvider } from '../providers/occurrence-service/occurrence-service';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 import { SuperTabsModule } from 'ionic2-super-tabs';
-import { LevoTaskComponent } from '../components/levo-task/levo-task';
-
+import { ConfirmationTaskPage } from '../pages/confirmation-task/confirmation-task';
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     TaskDetailsPage,
     NewOccurrencePage,
+    ConfirmationTaskPage,
     FeedPage,
     LoginPage,
     TabsPage
@@ -53,6 +53,7 @@ import { LevoTaskComponent } from '../components/levo-task/levo-task';
     HomePage,
     TaskDetailsPage,
     NewOccurrencePage,
+    ConfirmationTaskPage,
     FeedPage,
     LoginPage,
     TabsPage
@@ -66,9 +67,9 @@ import { LevoTaskComponent } from '../components/levo-task/levo-task';
     DriverServiceProvider,
     TaskServiceProvider,
     ItineraryServiceProvider,
-    DeviceLocationServiceProvider,
     PersistenceServiceProvider,
-    OccurrenceServiceProvider
+    OccurrenceServiceProvider,
+    LocalNotifications
    
   ]
 })

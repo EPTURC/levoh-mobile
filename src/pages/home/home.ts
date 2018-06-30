@@ -4,13 +4,10 @@ import { Task } from '../../models/Task';
 import { TaskDetailsPage } from '../task-details/task-details';
 import { NewOccurrencePage } from '../new-occurrence/new-occurrence';
 import { ItineraryServiceProvider } from '../../providers/itinerary-service/itinerary-service';
-import { Itinerary, ItineraryItem } from '../../models/Itinerary';
-import { Driver } from '../../models/Driver';
+import { ItineraryItem } from '../../models/Itinerary';
 import { PersistenceServiceProvider } from '../../providers/persistence-service/persistence-service';
 import { LoginPage } from '../login/login';
 import { App } from 'ionic-angular/components/app/app';
-
-
 
 @Component({
   selector: 'page-home',
@@ -18,19 +15,15 @@ import { App } from 'ionic-angular/components/app/app';
 })
 export class HomePage {
 
-  public itineraty = new Itinerary();
-  public get itineratyItemList(): ItineraryItem[] {
-    return this.itineraty.items;
-  }
+  public itineratyItemList: Array<ItineraryItem> = [];
 
   public get taskList(): Task[] {
-    return this.itineraty.items.map(item=>item.task);
+    return this.itineratyItemList.map(item=>item.task);
   }
 
   constructor(public navCtrl: NavController,
     private itineraryService: ItineraryServiceProvider,
     private persistenceService: PersistenceServiceProvider,
-    private navControl: NavController,
     private app: App) {
       this.subscribeCurrentDriver();
       this.subscribeItinerary();
@@ -38,10 +31,7 @@ export class HomePage {
 
   private subscribeItinerary() {
     this.persistenceService.subscribeItinerary(it => {
-      if (it) {
-        console.log("Setting itinerary");
-          this.itineraty = it;
-      }
+      this.itineratyItemList = it.items || [];
     })
   }
 
@@ -68,7 +58,6 @@ export class HomePage {
 
   navigateToItemDetailPage(item: ItineraryItem) {
     this.navCtrl.push(TaskDetailsPage, {
-      itineraryParam: this.itineraty,
       itemSelected: item
     });
   }

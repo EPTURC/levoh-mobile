@@ -8,6 +8,13 @@ export enum ItineraryStatus {
 }
 
 export class ItineraryItem {
+    assign(other: ItineraryItem) {
+        this.id = other.id;
+        this.index = other.index;
+        this.done = other.done;
+        this.task.assign(other.task);
+        this._itinerary = other._itinerary;
+    }
     public id: number;
     public index: number;
     public done: boolean;
@@ -16,8 +23,19 @@ export class ItineraryItem {
         return this._itinerary;
     }
 
-    public get status() {
-        return this.done ? 'Concluída': 'Em andamento';
+    public get status(): string {
+        return this.done ? 'Concluído': 'Em andamento';
+    }
+
+    public set status(s: string) {
+        if (s == 'Em andamento')
+        this.done = false;
+
+        if (s == 'Concluído')
+        this.done = true;
+
+        if (s == 'Pausado')
+        this.done = false;
     }
     
     constructor(private _itinerary: Itinerary) {}
@@ -52,6 +70,25 @@ export class Itinerary {
 
     public get isInactive() : boolean {
         return this.status == ItineraryStatus.Inactive;
+    }
+
+    /**
+     * Add or refresh an item to itinerary
+     * @param item The fresh item
+     * @return Whether the Itinerary was refreshed
+     */
+    refreshItem(item: ItineraryItem): boolean {
+        if (!item || !item.id || item.itinerary != this) {
+            // This item is invalid or belongs to another itinerary
+            return false;
+        }
+        let i = this.items.filter(i => i.id == item.id);
+        if (!i) {
+            this.items.push(item);
+        } else {
+            i[0].assign(item);
+        }
+        return true;
     }
 
     encodeJson(): any {
