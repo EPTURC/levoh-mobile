@@ -10,6 +10,8 @@ import 'rxjs/add/operator/filter';
 import { PersistenceServiceProvider } from '../providers/persistence-service/persistence-service';
 import { VehicleServiceProvider } from '../providers/vehicle-service/vehicle-service';
 import { GeoCoordinate } from '../models/GeoCoordinate';
+import { Subscription } from 'rxjs/Subscription';
+import { BatteryStatus } from '@ionic-native/battery-status';
 
 @Component({
   templateUrl: 'app.html'
@@ -18,6 +20,9 @@ import { GeoCoordinate } from '../models/GeoCoordinate';
 export class MyApp {
   rootPage = TabsPage;
   vehicle: Vehicle = null;
+  // 0 - 100 battery level
+  private batteryLevel: number = -1;
+  private battertStatusSubscription: Subscription = null;
 
   constructor(
     platform: Platform,
@@ -26,6 +31,7 @@ export class MyApp {
     private geolocation: Geolocation,
     private store: PersistenceServiceProvider,
     private vehicleProvider: VehicleServiceProvider,
+    private batteryStatus: BatteryStatus,
     private toast: ToastController) {
     
     statusBar.backgroundColorByHexString('#000000');
@@ -35,11 +41,12 @@ export class MyApp {
     });
     this.subscribeVehicle();
     this.sendPosition();
+    this.subscribeBatteryStatus();
   }
 
   sendPosition() {
     this.geolocation.watchPosition()
-      .filter(pos => this.vehicle && pos.coords != undefined)
+      .filter(pos => this.vehicle && this.batteryLevel >= 0 && pos.coords != undefined)
       .map(intoGeoCoordinate)
       .subscribe(loc => {
         this.vehicleProvider.insertLocationByVehicle(this.vehicle, loc)
@@ -54,6 +61,17 @@ export class MyApp {
     // TODO: Add subscribeVehice on PersistenceServiceProvider
     this.store.subscribeItinerary(it => {
       this.vehicle = it ? it.vehicle : null;
+    })
+  }
+
+  subscribeBatteryStatus() {
+    this.battertStatusSubscription = this.batteryStatus.onChange().subscribe(status => {
+      this.batteryLevel = status.level;
+      this.toast.create({
+        message: `BatteryLevel = ${this.batteryLevel} ${status.isPlugged?'🔌':'🔋'}`,
+        duration: 5000,
+        position: 'middle'
+      }).present();
     })
   }
 }
