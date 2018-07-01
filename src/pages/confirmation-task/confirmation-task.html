@@ -6,15 +6,39 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>confirmation-task</ion-title>
-  </ion-navbar>
+
 
 </ion-header>
 
 
 <ion-content padding>
-  <h1>PÁGINA BURRA!</h1>
+  <h3 style="text-align: center;">A {{itemSelected.task.type}} foi concluída com sucesso?</h3>
 
-  Carlos precisa enviar as modificações que ele fez
+  <ion-list radio-group (ionChange)="successChange()" [(ngModel)]="success">
+    <ion-item>
+      <ion-label>Sim</ion-label>
+      <ion-radio value="yes" checked></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>Não</ion-label>
+      <ion-radio value="no"></ion-radio>
+    </ion-item>
+  </ion-list>
+  <div *ngIf="success == 'no'">
+      <ion-item>
+          <ion-label>Motivo</ion-label>
+          <ion-select [(ngModel)]="optionSelected">
+            <ion-option value="option1">option1</ion-option>
+            <ion-option value="option2">option2</ion-option>
+          </ion-select>
+        </ion-item>
+      <textarea style="width: 100%; height: 20%;" [(ngModel)]="additionalDetails" placeholder="Detalhes adicionais..."></textarea>
+  </div>
+
+  <div style="position: fixed; bottom: 10px; margin-left: 10%;">
+    <button ion-button color="danger" (click)="cancel()" >Cancelar</button>
+    <button ion-button  (click)="sendConfirmation()" >Confimar</button>
+  </div>
+  
+
 </ion-content>

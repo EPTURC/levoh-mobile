@@ -20,7 +20,10 @@ import { PersistenceServiceProvider } from '../../providers/persistence-service/
 })
 export class ConfirmationTaskPage {
 
-  public itemSelected = new ItineraryItem(new Itinerary())
+  public itemSelected: ItineraryItem;
+  public success:any;
+  public optionSelected:any;
+  public additionalDetails: String;
 
   constructor(
     public navCtrl: NavController, 
@@ -28,11 +31,13 @@ export class ConfirmationTaskPage {
     private itineraryService: ItineraryServiceProvider,
     private store: PersistenceServiceProvider,
     private toast: ToastController) {
+     this.itemSelected = this.navParams.get('item');
+      console.log(this.itemSelected);
+      
+
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ConfirmationTaskPage');
-  }
+
 
   // This is how we currently can send updates to server
   sendItineraryItemUpdate() {
@@ -56,4 +61,27 @@ export class ConfirmationTaskPage {
         }).present();
       })
   }
+
+
+  public successChange(){
+    // called when radio button is changed
+    
+  }
+
+  public cancel(){
+    this.navCtrl.pop();
+  }
+
+  /**
+   * This method send the task change to API
+   */
+  public sendConfirmation(){
+    console.log(this.success);
+    console.log(this.optionSelected);
+    console.log(this.additionalDetails);
+    
+    
+  }
+
+
 }
