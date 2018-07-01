@@ -31,7 +31,7 @@ export class HomePage {
 
   private subscribeItinerary() {
     this.persistenceService.subscribeItinerary(it => {
-      this.itineratyItemList = it.items || [];
+      this.itineratyItemList = it && it.items || [];
     })
   }
 
