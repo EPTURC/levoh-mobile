@@ -36,10 +36,14 @@ export class NewOccurrencePage {
   public fillMissingFieldsAndSendOccurrence() {
     // Wait for location and driver to be set then send the occurrence
     forkJoin(
-      Observable.fromPromise(this.geolocation.getCurrentPosition()).map(this.fillLocation),
+      Observable.fromPromise(this.geolocation.getCurrentPosition()).map((gl) => {this.fillLocation(gl)}),
       this.persistenceService.getDriver(this.occurrence.driver))
-    .map(this.sendOccurence)
-    .subscribe(this.showSuccessToasAndNavigateBack, this.showFailToast);
+    .map(()=> {this.sendOccurence()})
+    .subscribe(()=> {
+      this.showSuccessToasAndNavigateBack()
+    }, ()=> {
+      this.showFailToast();
+    });
   }
 
   private fillLocation(geoposition: Geoposition) {
