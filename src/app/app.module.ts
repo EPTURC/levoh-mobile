@@ -26,6 +26,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 import { SuperTabsModule } from 'ionic2-super-tabs';
 import { ConfirmationTaskPage } from '../pages/confirmation-task/confirmation-task';
 import { BatteryStatus } from '@ionic-native/battery-status';
+import { MessagesServiceProvider } from '../providers/messages-service/messages-service';
 @NgModule({
   declarations: [
     MyApp,
@@ -71,7 +72,8 @@ import { BatteryStatus } from '@ionic-native/battery-status';
     PersistenceServiceProvider,
     OccurrenceServiceProvider,
     LocalNotifications,
-    BatteryStatus
+    BatteryStatus,
+    MessagesServiceProvider
   ]
 })
 export class AppModule {}

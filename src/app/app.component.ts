@@ -12,6 +12,7 @@ import { VehicleServiceProvider } from '../providers/vehicle-service/vehicle-ser
 import { GeoCoordinate } from '../models/GeoCoordinate';
 import { Subscription } from 'rxjs/Subscription';
 import { BatteryStatus } from '@ionic-native/battery-status';
+import { MessagesServiceProvider } from '../providers/messages-service/messages-service';
 
 @Component({
   templateUrl: 'app.html'
@@ -55,6 +56,10 @@ export class MyApp {
           
         }, err => console.trace);
       });
+  }
+
+  getMessages(){
+
   }
 
   subscribeVehicle() {

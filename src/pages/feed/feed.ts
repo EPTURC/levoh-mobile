@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { PersistenceServiceProvider } from '../../providers/persistence-service/persistence-service';
+import { HttpClient } from '@angular/common/http';
+import { Message } from '../../models/Message';
+import { MessagesServiceProvider } from '../../providers/messages-service/messages-service';
 
 /**
  * Generated class for the FeedPage page.
@@ -15,13 +19,35 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class FeedPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public centralMsg:Message;
+
+
+  constructor(public navCtrl: NavController, public navParams: NavParams
+    , private persistenceService: PersistenceServiceProvider
+    ,private http: HttpClient
+    ,private messagesService: MessagesServiceProvider) {
+
     
     
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad FeedPage');
+  ionViewWillEnter() {
+    this.persistenceService.subscribeDriver(driver => {
+        
+      console.log(driver);
+
+      
+      this.messagesService.getMessagesByDriver(driver).subscribe(
+        (resp)=>{
+         // this.centralMsg =  Array.isArray();
+          this.centralMsg = resp;
+          
+        }
+      );
+      
+      
+    })
   }
+  
 
 }

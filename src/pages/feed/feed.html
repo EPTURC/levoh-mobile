@@ -16,13 +16,18 @@
 
 <ion-content padding>
 
-    <ion-card>
-        <ion-card-header>
-          Noticia
+    <div *ngIf="centralMsg == null" style="text-align: center;">
+        <label>Nenhuma mensagem enviada para você!</label>
+    </div>
+
+    <ion-card *ngIf="centralMsg != null" 
+    style="background-color: rgb(233, 230, 225); text-align: center;">
+        <ion-card-header style="font-weight: bold;">
+          Última mensagem
         </ion-card-header>
-        <ion-card-content>
-          The British use the term "header", but the American term "head-shot" the English simply refuse to adopt.
+        <ion-card-content  >
+         {{centralMsg.message_text}}
         </ion-card-content>
-      </ion-card>
+    </ion-card>
 
 </ion-content>
