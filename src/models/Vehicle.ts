@@ -5,6 +5,7 @@ export class Vehicle{
     public company: String;
     // TODO: Use some smarter data type, a Ordered Set for example 
     public locationHistory: GeoCoordinate[] = [];
+    public battery: number = 100;
 
     get lastLocation(): GeoCoordinate {
         if (!this.locationHistory.length) return null;
@@ -14,6 +15,7 @@ export class Vehicle{
     decodeJson(json: any) {
         this.id = json.id || 0;
         this.company = json.company_id || '';
+        this.battery = json.battery || 100;
         this.locationHistory = (json.locations || json.last_location ? [json.last_location] : [])
         .map((jsonLocation) => {
             var loc = new GeoCoordinate();
@@ -26,6 +28,7 @@ export class Vehicle{
         return {
             id: this.id,
             company_id: this.company,
+            battery: this.battery,
             location: this.locationHistory.map(c => c.encodeJson())
         }
     }

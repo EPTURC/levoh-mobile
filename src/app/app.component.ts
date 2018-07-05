@@ -21,8 +21,6 @@ import { MessagesServiceProvider } from '../providers/messages-service/messages-
 export class MyApp {
   rootPage = TabsPage;
   vehicle: Vehicle = null;
-  // 0 - 100 battery level
-  private batteryLevel: number = -1;
   private battertStatusSubscription: Subscription = null;
 
   constructor(
@@ -47,7 +45,7 @@ export class MyApp {
 
   sendPosition() {
     this.geolocation.watchPosition()
-      .filter(pos => this.vehicle && this.batteryLevel >= 0 && pos.coords != undefined)
+      .filter(pos => this.vehicle && pos.coords != undefined)
       .map(intoGeoCoordinate)
       .subscribe(loc => {
         this.vehicleProvider.insertLocationByVehicle(this.vehicle, loc)
@@ -70,13 +68,18 @@ export class MyApp {
   }
 
   subscribeBatteryStatus() {
-    this.battertStatusSubscription = this.batteryStatus.onChange().subscribe(status => {
-      this.batteryLevel = status.level;
-      this.toast.create({
-        message: `BatteryLevel = ${this.batteryLevel} ${status.isPlugged?'🔌':'🔋'}`,
-        duration: 5000,
-        position: 'middle'
-      }).present();
+    this.battertStatusSubscription = this.batteryStatus.onChange()
+    .filter(()=> this.vehicle != undefined)
+    .subscribe(status => {
+      this.vehicle.battery = status.level;
+      this.vehicleProvider.update(this.vehicle).subscribe(
+        () => {
+          console.log(`BatteryLevel sent successfully`);
+        },
+        () => {
+          console.log(`can't sent battery level`);
+        }
+      );
     })
   }
 }

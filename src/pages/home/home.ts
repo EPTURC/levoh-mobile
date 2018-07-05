@@ -16,6 +16,7 @@ import { App } from 'ionic-angular/components/app/app';
 export class HomePage {
 
   public itineratyItemList: Array<ItineraryItem> = [];
+  private refreshTimeout: any;
 
   public get taskList(): Task[] {
     return this.itineratyItemList.map(item=>item.task);
@@ -41,11 +42,19 @@ export class HomePage {
         this.app.getRootNav().push(LoginPage);
         return;
       }
+      if (this.refreshTimeout) {
+        clearTimeout(this.refreshTimeout);
+      }
       this.refreshItineraryOfDriver(driver);
     })
   }
 
   private refreshItineraryOfDriver(driver) {
+    if (driver) {
+      this.refreshTimeout = setTimeout(() => {
+        this.refreshItineraryOfDriver(driver)
+      }, 30000);
+    }
     let subscription = this.itineraryService.getByDriver(driver).subscribe(it => {
       console.log("refreshing itinerary");
       this.persistenceService.setItinerary(it);
