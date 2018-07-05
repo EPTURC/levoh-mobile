@@ -22,7 +22,7 @@ export class MessagesServiceProvider {
     
       console.log(this.url+driver.id);
       
-     return this.http.get<Message>(this.url+driver.id);
+     return this.http.get<Message[]>(this.url+driver.id);
   }
 
   verifyNewMessage(){

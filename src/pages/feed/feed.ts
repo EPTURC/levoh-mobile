@@ -19,7 +19,7 @@ import { MessagesServiceProvider } from '../../providers/messages-service/messag
 })
 export class FeedPage {
 
-  public centralMsg:Message;
+  public centralMsg:Message[];
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams
